@@ -12,12 +12,13 @@ import java.sql.Date;
 public class ApprovedItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private int approved_item_id;
     @OneToOne
-    private int approved_item;
+    private Item approved_item;
     private Date start_date;
     private Date end_date;
     private double highest_price;
     @OneToOne
-    private String highest_bidder;
+    private User highest_bidder;
 
 }
