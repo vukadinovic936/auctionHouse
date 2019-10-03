@@ -1,4 +1,5 @@
 package com.aubgteam.auctionhouse.Models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,8 +11,7 @@ import java.sql.Date;
 public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private int credit_card_id;
+    private String credit_card_id;
 
     private Date exppire_date;
 

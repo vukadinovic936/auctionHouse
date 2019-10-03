@@ -11,13 +11,16 @@ public class Item {
 
     private int item_id;
 
-    private int category_id;
+    @ManyToOne
+    private Category category_id;
 
     private double initial_price;
 
-    private String seller_username;
+    @ManyToOne
+    private User seller_username;
 
-    private int image_id;
+    @OneToOne
+    private Image image_id;
 
     @Lob
     private String description;
