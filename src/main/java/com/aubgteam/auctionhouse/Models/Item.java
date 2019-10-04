@@ -8,7 +8,6 @@ import javax.persistence.*;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private int item_id;
 
     @ManyToOne
