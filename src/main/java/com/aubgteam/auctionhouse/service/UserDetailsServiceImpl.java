@@ -1,5 +1,4 @@
 package com.aubgteam.auctionhouse.service;
-import com.aubgteam.auctionhouse.Models.Role;
 import com.aubgteam.auctionhouse.Models.User;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if (user == null) throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        if(user.is_admin()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);

@@ -21,8 +21,7 @@ public class User {
 
     @Transient
     private String passwordConfirm;
-    @ManyToMany
-    private Set<Role> roles;
+
     @OneToOne
     private CreditCard credit_card;
 
