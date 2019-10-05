@@ -22,7 +22,4 @@ public class Image {
     private String image_ctgy;
 
     private String image_name;
-
-
-
 }
