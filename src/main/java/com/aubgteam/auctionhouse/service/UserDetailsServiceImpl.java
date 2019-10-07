@@ -25,8 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if (user == null) throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        if(user.is_admin()) {
+        if(user.getIs_admin()==1) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }else if(user.getIs_admin()==2) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);

@@ -27,7 +27,7 @@ public class User {
 
     private String password;
 
-    private boolean is_admin;
+    private int is_admin;
 
 
 }
