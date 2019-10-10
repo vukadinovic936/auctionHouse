@@ -7,6 +7,7 @@ import java.sql.Blob;
 
 @Entity
 @Data
+//Model for the table in the Category
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

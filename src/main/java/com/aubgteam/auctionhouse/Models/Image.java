@@ -6,6 +6,7 @@ import java.sql.Blob;
 
 @Entity
 @Data
+//Model for the table in the Image
 public class Image {
 
     @Id

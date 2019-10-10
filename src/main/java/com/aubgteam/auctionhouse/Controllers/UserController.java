@@ -1,8 +1,8 @@
-package com.aubgteam.auctionhouse.web;
+package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.User;
-import com.aubgteam.auctionhouse.service.SecurityService;
-import com.aubgteam.auctionhouse.service.UserService;
-import com.aubgteam.auctionhouse.validator.UserValidator;
+import com.aubgteam.auctionhouse.Service.SecurityService;
+import com.aubgteam.auctionhouse.Service.UserService;
+import com.aubgteam.auctionhouse.Validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +22,16 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    //load registration page with userForm displayed, if Submitted redirect to PostMapping(registration)
     @GetMapping("/registration")
     public String registration(Model model){
         model.addAttribute("userForm", new User());
+        //registration .html file displays error if something wrong was entered in userForm since this is get mapping, there won't be any errors
         model.addAttribute("errors", " ");
         return "registration";
     }
-
+    //Checks if all the fields are valid and if they are creates a new user in database
+    //If there is an error reload the page and display the error
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,Model model ) {
         userValidator.validate(userForm, bindingResult);
@@ -54,8 +57,10 @@ public class UserController {
                 errors +=" These password don't match \n" ;
             }
             model.addAttribute("errors",errors) ;
+            //reload and display eror
             return "/registration";
         }else {
+            //Create a new user in DB
             userService.save(userForm);
             securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
             return "redirect:/welcome";
@@ -63,6 +68,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
+    //Login if there is no error
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -74,6 +80,7 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
+    //Welcome page for the users
     public String welcome(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username="";
