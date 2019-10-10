@@ -5,10 +5,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
+//Model for the table Item
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private int item_id;
 
     @ManyToOne

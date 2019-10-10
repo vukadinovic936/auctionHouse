@@ -8,6 +8,7 @@ import java.sql.Date;
 
 @Entity
 @Data
+//Model for the table in the CreditCard
 public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

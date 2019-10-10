@@ -6,7 +6,7 @@ import org.hibernate.annotations.GeneratorType;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
-
+//Model for the table in the ApprovedItem
 @Entity
 @Data
 public class ApprovedItem {
