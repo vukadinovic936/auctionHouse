@@ -26,11 +26,13 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if (user == null) throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+
         if(user.getIs_admin()==1) {
             //If isAdmin is 1 then add the role of admin to the user
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }else if(user.getIs_admin()==2) {
+        }else {
             // if isAdmin is 2 then add the role of the user ( by default all users have isAdmin=2)
+
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
