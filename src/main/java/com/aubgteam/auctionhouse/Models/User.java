@@ -5,10 +5,13 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
+
+@Table(schema = "auctiondb")
 //Model for the table User
 public class User {
     @Id
@@ -25,6 +28,9 @@ public class User {
 
     @OneToOne
     private CreditCard credit_card;
+
+//    @OneToMany(mappedBy = "sellerId", cascade = CascadeType.ALL)
+//    private List <Item> postedItems;
 
     private String password;
 

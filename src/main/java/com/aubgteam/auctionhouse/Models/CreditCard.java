@@ -8,13 +8,12 @@ import java.sql.Date;
 
 @Entity
 @Data
-//Model for the table in the CreditCard
 public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String credit_card_id;
+    private long credit_card_id;
 
-    private Date exppire_date;
+    private Date expire_date;
 
     private String cvv;
 

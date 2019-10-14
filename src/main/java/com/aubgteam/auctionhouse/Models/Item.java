@@ -1,27 +1,64 @@
 package com.aubgteam.auctionhouse.Models;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.cache.spi.TimestampsRegion;
 
 import javax.persistence.*;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
-//Model for the table Item
+@Table(schema = "auctiondb")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int item_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long item_id;
+
+    private String name;
+
 
     @ManyToOne
+    @JoinColumn
     private Category category_id;
 
-    private double initial_price;
+
+    private double reserve_price;
 
     @ManyToOne
-    private User seller_username;
+    @JoinColumn
+    private User sellerId;
+
+    private double evaluation;
+
+
+//    private String image_URL;
+
+
+//    @Lob
+    private String description;
+
+
+
+    @OneToOne(mappedBy = "approved_item", cascade = CascadeType.ALL)
+    private ApprovedItem approvedItem;
+
 
     @OneToOne
-    private Image image_id;
+    @JoinColumn
+    private Image image;
 
-    @Lob
-    private String description;
+    @CreationTimestamp
+    @Column(name = "CREATE_STAMP", nullable = false, updatable = false)
+    private LocalDateTime timestamp;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedTimestamp;
+
+
 }

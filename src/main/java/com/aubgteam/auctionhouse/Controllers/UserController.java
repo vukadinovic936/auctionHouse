@@ -1,7 +1,7 @@
 package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.User;
-import com.aubgteam.auctionhouse.Service.SecurityService;
-import com.aubgteam.auctionhouse.Service.UserService;
+import com.aubgteam.auctionhouse.Services.SecurityService;
+import com.aubgteam.auctionhouse.Services.UserService;
 import com.aubgteam.auctionhouse.Validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +40,7 @@ public class UserController {
             User user = (User) userForm;
             Errors binres=bindingResult;
             if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-                    errors+="Please use between 6 and 32 characters.\n";
+                errors+="Please use between 6 and 32 characters.\n";
             }
             if (userService.findByUsername(user.getUsername()) != null) {
                 errors+="Someone already has that username. Please try another one\n";
@@ -86,11 +86,11 @@ public class UserController {
         String username="";
         if (principal instanceof UserDetails) {
 
-             username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails)principal).getUsername();
 
         } else {
 
-             username = principal.toString();
+            username = principal.toString();
 
         }
         model.addAttribute("currentUser", username);

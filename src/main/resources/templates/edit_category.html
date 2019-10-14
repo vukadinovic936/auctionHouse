@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit category</title>
+    <style>
+        input[type=text] {
+            border: 2px solid black;
+            border-radius: 4px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        input[type=text]:focus {
+            border: 3px solid #555;
+        }
+
+        div {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <h1> Edit category</h1>
+    <br/>
+
+    <!-- similar form to create new category -->
+    <form action="#" th:action="@{/save_category}" th:object="${category}" method="post">
+        <table border="0" cellpadding="10">
+
+            <tr>
+                <td> Category ID :</td>
+                <td> <input type="text" th:field="*{id}" readonly="readonly" /></td>  <!-- the category id cannot be changed - it's set to read only -->
+            </tr>
+
+            <tr>
+                <td> Category Name :</td>
+                <td> <input type="text" th:field="*{category_name}" /></td>
+            </tr>
+
+            <tr>
+
+                <td colspan="2" style="text-align: center;"> <button type="submit" style="background-color: #D9B45F; cursor:pointer; border: none; padding: 10px 20px; font-size: 20px; margin: 4px 2px; box-shadow:inset 0px -3px 7px 0px #C89C37; color: white;"/> Save </td>
+            </tr>
+        </table>
+
+
+    </form>
+</div>
+</body>
+</html>

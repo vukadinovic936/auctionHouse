@@ -1,4 +1,4 @@
-package com.aubgteam.auctionhouse.Service;
+package com.aubgteam.auctionhouse.Services;
 
 public interface SecurityService {
     // Display a username of LoggedInUser
