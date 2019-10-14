@@ -79,7 +79,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({"/", "/welcome"})
+    @GetMapping({"/","/welcome"})
     //Welcome page for the users
     public String welcome(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Sign in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
-</head>
+<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 
-<body>
 <div class="container">
 </div>
 <form th:action="@{/login}" method="post"  class="form-signin">
@@ -29,5 +19,5 @@
     </div>
 </form>
 </div>
-</body>
-</html>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
+

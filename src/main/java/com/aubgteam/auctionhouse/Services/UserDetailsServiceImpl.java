@@ -31,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }else{
             // if isAdmin is 2 then add the role of the user ( by default all users have isAdmin=2)
+
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
