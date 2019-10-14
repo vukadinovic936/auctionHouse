@@ -1,6 +1,6 @@
 package com.aubgteam.auctionhouse.Validator;
 import com.aubgteam.auctionhouse.Models.User;
-import com.aubgteam.auctionhouse.Service.UserService;
+import com.aubgteam.auctionhouse.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

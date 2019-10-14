@@ -1,7 +1,10 @@
 package com.aubgteam.auctionhouse.Repositories;
-import com.aubgteam.auctionhouse.Models.CreditCard;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.aubgteam.auctionhouse.Models.Category;
 
-public interface CategoryRepository extends JpaRepository<CreditCard, Long>{
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 }

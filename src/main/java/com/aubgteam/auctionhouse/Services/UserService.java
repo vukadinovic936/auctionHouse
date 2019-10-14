@@ -1,4 +1,4 @@
-package com.aubgteam.auctionhouse.Service;
+package com.aubgteam.auctionhouse.Services;
 
 import com.aubgteam.auctionhouse.Models.User;
 

@@ -3,24 +3,35 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.List;
 
 @Entity
 @Data
-//Model for the table in the Image
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    private int image_id;
+    private String name;
+    private String type;
 
-    private String image_type;
 
-    private Blob image;
 
-    private String image_size;
+    @Lob
+    private String data;
 
-    private String image_ctgy;
+    public Image(String fileName, String fileType, String data) {
+        this.name = fileName;
+        this.type = fileType;
+        this.data = data;
+    }
 
-    private String image_name;
+    @OneToOne(mappedBy = "image")
+    private Item item;
+
+
+    public Image() {
+
+    }
 }

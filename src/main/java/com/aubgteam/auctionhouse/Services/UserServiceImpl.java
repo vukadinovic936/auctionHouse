@@ -1,4 +1,4 @@
-package com.aubgteam.auctionhouse.Service;
+package com.aubgteam.auctionhouse.Services;
 import com.aubgteam.auctionhouse.Models.User;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
