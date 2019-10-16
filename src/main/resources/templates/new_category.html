@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Create new category</title>
-    <style>
 
-        input[type=text] {
-            border: 2px solid black;
-            border-radius: 4px;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-
-        input[type=text]:focus {
-            border: 3px solid #555;
-        }
-
-        div {
-            background-color: #f1f1f1;
-        }
-    </style>
-</head>
-<body>
-<div align="center">
+<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="category_div" align="center">
     <h1> Create new category</h1>
     <br/>
 
@@ -35,13 +12,13 @@
 
             <tr>
                 <td> Category ID :</td>   <!-- textfield 1 -->
-                <td> <input type="text" th:field="*{id}" /></td>
+                <td> <div class="category_input"><input class="category_input" type="text" th:field="*{id}" /></div></td>
                 <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>
             </tr>
 
             <tr>
                 <td> Category Name :</td>   <!-- textfield 2 -->
-                <td> <input type="text" th:field="*{category_name}" /></td>
+                <td> <div class="category_input"><input type="text" th:field="*{category_name}" /></div></td>
                 <td th:if="${#fields.hasErrors('category_name')}" th:errors="*{category_name}">Name Error</td>
             </tr>
 
