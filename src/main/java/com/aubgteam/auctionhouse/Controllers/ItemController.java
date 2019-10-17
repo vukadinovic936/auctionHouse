@@ -7,7 +7,6 @@ import com.aubgteam.auctionhouse.Services.ImageService;
 import com.aubgteam.auctionhouse.Services.ItemService;
 import com.aubgteam.auctionhouse.Services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -66,8 +65,10 @@ public class ItemController {
         model.addAttribute("username",username);
         model.addAttribute("imageService", imageService);
 
-        return "items";
+        return "items_admin";
     }
+
+
 
 //    @RequestMapping("/t")
 //            public String
@@ -106,7 +107,7 @@ public class ItemController {
                     imageService.deleteImage(itemService.get(item.getItem_id()).getImage().getId());
                 }
                 Image savedImage = imageService.storeImage(imagePath);
-//                item.setSellerId(userService.findByUsername(username));
+                item.setSellerId(userService.findByUsername(username));
 
                 item.setImage(savedImage);
                 itemService.save(item);

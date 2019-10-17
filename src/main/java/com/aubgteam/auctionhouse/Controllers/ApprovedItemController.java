@@ -3,6 +3,7 @@ package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Item;
 import com.aubgteam.auctionhouse.Services.ApprovedItemService;
+import com.aubgteam.auctionhouse.Services.ImageService;
 import com.aubgteam.auctionhouse.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,20 @@ public class ApprovedItemController {
     private ApprovedItemService approvedItemService;
     @Autowired
     private ItemService itemService;
+
+
+
+    @RequestMapping("/items")
+    public String viewApprovedItems(Model model)
+    {
+
+        List<ApprovedItem> listOfItems = approvedItemService.listAll();
+        model.addAttribute("listOfItems", listOfItems);
+
+//        model.addAttribute("imageService", imageService);
+
+        return "items";
+    }
 
     @RequestMapping("/approve/{id}")
     public String showNewApprovedItemPage(Model model, @PathVariable(name = "id") long item_id
