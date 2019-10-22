@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Create New Item</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/readDataAsUrl.js}"></script>
 </head>
+<head th:include="/includes/head :: head (title='Welcome')" />
 <body>
 <div align="center">
     <h1>Create New Item</h1>
@@ -15,39 +18,37 @@
         <table border="0" cellpadding="10">
             <tr>
                 <td>Item  Name:</td>
-                <td><input type="text" th:field="${item.name}" /></td>
+                <td><input type="text" th:field="${item.name}" required/></td>
             </tr>
             <tr>
                 <td>Item category:</td>
                 <td>
-                    <select th:field="${item.category_id}" max="1">
+                    <select th:field="${item.category_id}" max="1" required>
                     <option  th:each="category: ${categories}"  th:value="${category.getId()}" th:text="${category.getCategory_name()}"></option>
                 </select>
                 </td>
             </tr>
-<!--            <tr>-->
-<!--                <td>Image:</td>-->
-<!--                <td>-->
-<!--&lt;!&ndash;                    <input type="file" th:name="image"/>&ndash;&gt;-->
-<!--                </td>-->
+
             </tr>
             <tr>
-                <td>Reserve price:</td>
-                <td><input type="number" th:field="${item.reserve_price}" /></td>
+                <td>Reserve price: </td>
+                <td><input type="number" required th:field="${item.reserve_price}" min="1" /></td>
             </tr>
             <tr>
                 <td>Evaluation:</td>
-                <td><input type="number" th:field="${item.evaluation}" /></td>
+                <td><input type="number" th:field="${item.evaluation}" required min="1"/></td>
             </tr>
 
                 <tr>
                     <td>Image:</td>
 
-                    <td><input type="file" name="imagePath"  accept="image/*"/></td>
+                    <td><img id="imageLabel"><input type="file" name="imagePath" required accept="image/*" onchange="readURL(this);"/>
+                        </td>
                 </tr>
             <tr>
-                <td>Description:</td>
-                <td><input type="text" th:field="${item.description}" /></td>
+                <td>Description:
+                <br> Maximum 150 characters</td>
+                <td><textarea th:field="${item.description}" required  maxlength="150"/></textarea></td>
             </tr>
 
             <tr><td colspan="2"> <button type="submit">Save</button></td></tr>

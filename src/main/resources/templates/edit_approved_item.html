@@ -11,7 +11,7 @@
     <h1>Approve New Item</h1>
     <br />
 
-    <form action="#" th:action="@{/save_approved_item}" th:object="${approvedItem}"
+    <form action="/approved_items" th:action="@{/save_approved_item}" th:object="${approvedItem}"
           method="post">
 
         <table border="0" cellpadding="10">
@@ -19,20 +19,27 @@
                 <td>Item  Id:</td>
                 <td><input type="text"  th:field="*{approved_item_id}"readonly /></td>
             </tr>
- <tr>
+
+
+
+
+            <tr>
                 <td>Start date:</td>
                 <td>
-                   <input type="date" th:field="*{start_date}" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}" onchange="document.getElementById('end_date').min = this.value;" required/>
+                    <input type="date" th:field="*{start_date}" th:max="*{end_date}" onchange="document.getElementById('end_date').min=this.value;" required/>
                 </td>
             </tr>
             <tr>
                 <td>End date:</td>
                 <td>
-<!--                    -->
-                    <input type="date" th:field="*{end_date}" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}" onchange="document.getElementById('start_date').max = this.value;" required/>
+                    <input type="date" th:field="*{end_date}" th:min="*{start_date}" onchange="document.getElementById('start_date').max=this.value; " required/>
                 </td>
             </tr>
 
+            <!--            <tr>-->
+            <!--                <td>Description:</td>-->
+            <!--                <td><input type="number" th:field="${approvedItem.highest}" /></td>-->
+            <!--            </tr>-->
             <tr>
                 <td colspan="2"><button type="submit">Save</button> </td>
             </tr>

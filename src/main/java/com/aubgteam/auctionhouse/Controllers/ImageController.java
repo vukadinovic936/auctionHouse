@@ -38,7 +38,7 @@ public class ImageController {
 
        try{
 //           if(imagePath.isEmpty())
-           imageService.storeImage(imagePath);
+           imageService.save(imagePath);
 //        itemService.save(item);
 
         return "redirect:/";}
@@ -50,7 +50,7 @@ public class ImageController {
 
     @RequestMapping("/images")
     public String viewItemHomePage(Model model) {
-        Image image = imageService.getImage(2);
+        Image image = imageService.get(2);
         model.addAttribute("imageD", image);
 //        model.addAttribute("base64Path", Base64.getEncoder().encodeToString(image.getData()));
         return "image";

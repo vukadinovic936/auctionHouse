@@ -7,4 +7,5 @@ body{
 table,th,tr,td{
     border: 1px black solid;
     margin:auto;
+    padding: 15px ;
 }

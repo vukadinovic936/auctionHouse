@@ -3,6 +3,7 @@ package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.Image;
 import com.aubgteam.auctionhouse.Models.Item;
 import com.aubgteam.auctionhouse.Repositories.CategoryRepository;
+import com.aubgteam.auctionhouse.Services.ApprovedItemService;
 import com.aubgteam.auctionhouse.Services.ImageService;
 import com.aubgteam.auctionhouse.Services.ItemService;
 import com.aubgteam.auctionhouse.Services.UserServiceImpl;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ItemController {
@@ -34,69 +36,33 @@ public class ItemController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @PostMapping(path="/") // Map ONLY POST Requests
-//    public @ResponseBody
-//    String addNewItem ( @RequestParam Category category_id, @RequestParam double initial_price, @RequestParam String description) {
-//
-//        Item i  = new Item();
-//        i.setReserve_price(initial_price);
-//        i.setDescription(description);
-////        i.setCategory_id(category_id);
-//
-//
-//        itemRepository.save(i);
-//
-//
-//
-//        return "Saved";
-//    }
-//
-//    @GetMapping(path="/items/all")
-//    public @ResponseBody Iterable<Item> getAllItems() {
-//        // This returns a JSON or XML with the users
-//        return itemRepository.findAll();
-//    }
+    @Autowired
+    private ApprovedItemService approvedItemService;
 
-    @RequestMapping("/items/{username}")
-    public String viewItemHomePage(Model model, @PathVariable(name = "username") String username)
+
+    @RequestMapping("/items_admin")
+    public String viewItemAsAdmin(Model model)
      {
         List<Item> listOfItems = itemService.listAll();
         model.addAttribute("listOfItems", listOfItems);
-        model.addAttribute("username",username);
         model.addAttribute("imageService", imageService);
 
         return "items_admin";
     }
 
-
-
-//    @RequestMapping("/t")
-//            public String
-//    {
-//
-//    }
-
-
     @RequestMapping("/new/{username}")
     public String showNewItemPage(Model model, @PathVariable(name="username") String username) {
         Item item = new Item();
-//        Image image = new Image();
         model.addAttribute("item", item);
-////        model.addAttribute("image", image);
+
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("username", username);
         return "new_item";
     }
 
-//    @RequestMapping("/cat")
-//    public String showNewItemPae(Model model) {
-//
-//        model.addAttribute("categories", categoryRepository.findAll());
-//        return "index";
-//    }
 
-    @RequestMapping(value = "/save_item/{username}", method = RequestMethod.POST)
-    public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item, @PathVariable(name = "username")String username) {
+    @RequestMapping(value = {"/save_item/{username}","/save_item/"}, method = RequestMethod.POST)
+    public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item, @PathVariable(name = "username", required = false) String username) {
 
         try
         {
@@ -104,14 +70,27 @@ public class ItemController {
 
             if(!t.equals("")) {
                 if (item.getItem_id() != 0 && itemService.get(item.getItem_id()).getImage() != null) {
-                    imageService.deleteImage(itemService.get(item.getItem_id()).getImage().getId());
-                }
-                Image savedImage = imageService.storeImage(imagePath);
-                item.setSellerId(userService.findByUsername(username));
+                    imageService.delete(itemService.get(item.getItem_id()).getImage().getId());
 
+                }
+                Image savedImage = imageService.save(imagePath);
                 item.setImage(savedImage);
-                itemService.save(item);
+                if (username != null) {
+                    item.setSellerId(userService.findByUsername(username));
+                }
+
             }
+            else
+            {
+                Item tempItem = itemService.get(item.getItem_id());
+                item.setImage(tempItem.getImage());
+                item.setSellerId(tempItem.getSellerId());
+            }
+
+
+
+                itemService.save(item);
+
                 return "redirect:/";
 
         }
@@ -120,35 +99,20 @@ public class ItemController {
         }
     }
 
-//    @RequestMapping(value = "/save_item", method = RequestMethod.POST)
-//    public String saveImage(@ModelAttribute("imagePath") MultipartFile imagePath)  {
-//
-//        try{
-////           if(imagePath.isEmpty())
-//            imageService.storeImage(imagePath);
-////        itemService.save(item);
-//
-//            return "redirect:/";}
-//        catch (IOException e)
-//        {
-//            return "1";
-//        }
-//    }
-
-
-    @RequestMapping("/edit/{id}/{username}")
-    public ModelAndView showEditItemPage(@PathVariable(name = "id") long id, @PathVariable(name = "username") String username) {
+    @RequestMapping("/edit/{id}")
+    public ModelAndView showEditItemPage(@PathVariable(name = "id") long id) {
         ModelAndView mav = new ModelAndView("edit_item");
         Item item = itemService.get(id);
         mav.addObject("item", item);
-        mav.addObject("username",username);
+//        mav.addObject("username",username);
         mav.addObject("categories", categoryRepository.findAll());
         return mav;
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteItem(@PathVariable(name = "id") int id) {
+        approvedItemService.delete(id);
         itemService.delete(id);
-        return "redirect:/";
+        return "redirect:/items_admin";
     }
 }

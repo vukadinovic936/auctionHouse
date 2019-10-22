@@ -5,7 +5,7 @@
     <h2>Welcome <span th:text="*{currentUser}"></span>  | <a th:href="@{/logout}">Sign out</a> </h2>
 
     <a  th:href="@{'/new/'+${currentUser}}">Post an item for sale</a>
-    <a  th:href="@{'/items/'+${currentUser}}">Show the items</a>
+    <a  th:href="@{/items_admin}">Show the items</a>
 </div>
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
 

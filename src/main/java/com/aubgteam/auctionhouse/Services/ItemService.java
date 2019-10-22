@@ -43,8 +43,7 @@ public class ItemService {
 //        approvedItem.setApproved_item_id(item.getItem_id());
 //        item.setApprovedItem(approvedItem);
         itemRepository.save(item);
-        approvedItem.setApproved_item(item);
-        approvedItemRepository.save(approvedItem);
+
     }
 
 }

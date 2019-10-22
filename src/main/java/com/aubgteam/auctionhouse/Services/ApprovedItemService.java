@@ -29,6 +29,7 @@ public class ApprovedItemService {
     }
 
     public void delete(long id) {
+
         approvedItemRepository.deleteById(id);
     }
 

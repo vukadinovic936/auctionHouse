@@ -8,7 +8,6 @@ function readURL(input) {
                 .width(150)
                 .height(200);
         };
-
         reader.readAsDataURL(input.files[0]);
     }
 }

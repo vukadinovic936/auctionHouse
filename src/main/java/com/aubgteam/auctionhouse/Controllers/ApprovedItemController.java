@@ -32,9 +32,6 @@ public class ApprovedItemController {
 
         List<ApprovedItem> listOfItems = approvedItemService.listAll();
         model.addAttribute("listOfItems", listOfItems);
-
-//        model.addAttribute("imageService", imageService);
-
         return "items";
     }
 
@@ -42,25 +39,40 @@ public class ApprovedItemController {
     public String showNewApprovedItemPage(Model model, @PathVariable(name = "id") long item_id
     ) {
         ApprovedItem approvedItem1 = new ApprovedItem();
-//        approvedItem1.setApproved_item(itemService.get(item_id));
+
         approvedItem1.setApproved_item_id(item_id);
 
         model.addAttribute("approvedItem", approvedItem1);
-        model.addAttribute("item", itemService.get(item_id));
+//        model.addAttribute("item", itemService.get(item_id));
 
 //
         return "new_approved_item";
     }
 
     @RequestMapping(value = "/save_approved_item", method = RequestMethod.POST)
-    public String saveApprovedItem(@ModelAttribute("approved_item") ApprovedItem approvedItem //, @ModelAttribute("item") Item aItem
+    public String saveApprovedItem(@ModelAttribute("approved_item") ApprovedItem approvedItem
     ) {
 //        approvedItem.setApproved_item_id(aItem.getItem_id());
 //        approvedItem.setApproved_item(aItem);
         Item item = itemService.get(approvedItem.getApproved_item_id());
-        itemService.saveApprovedItem(item, approvedItem);
-        return "redirect:/";
+        approvedItem.setApproved_item(item);
+        approvedItemService.save(approvedItem);
+//        itemService.saveApprovedItem(item, approvedItem);
+        return "redirect:/approved_items";
 //        return (Long.toString(approvedItem.getApproved_item_id()));
+    }
+
+    @RequestMapping("/edit_approved_item/{id}")
+    public String editApprovedItem(Model model, @PathVariable (name ="id")long id)    {
+        model.addAttribute("approvedItem", approvedItemService.get(id));
+        return "edit_approved_item";
+    }
+
+    @RequestMapping("/delete_approved_item/{id}")
+    public String deleteApprovedItem(@PathVariable (name="id") long id)
+    {
+        approvedItemService.delete(id);
+        return "redirect:/approved_items";
     }
 
     @RequestMapping("/approved_items")

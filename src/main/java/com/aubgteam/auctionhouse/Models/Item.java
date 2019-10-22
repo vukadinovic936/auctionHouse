@@ -45,7 +45,7 @@ public class Item {
 
 
 
-    @OneToOne(mappedBy = "approved_item", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "approved_item")
     private ApprovedItem approvedItem;
 
 

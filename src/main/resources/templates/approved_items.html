@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
 <meta charset="utf-8"/>
 <title>Item Manager</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<head th:include="/includes/head :: head (title='Welcome')" />
 <body>
 
 
@@ -11,7 +17,8 @@
         <th>Item Id</th>
         <th>Start date</th>
         <th>End date</th>
-        <th>Highest price</th>
+<!--        <th>Highest price</th>-->
+        <th colspan="2">Actions</th>
 
     </tr>
     </thead>
@@ -21,7 +28,7 @@
         <td th:text="${approvedItem.approved_item_id}"></td>
         <td th:text="${approvedItem.start_date}"></td>
         <td th:text="${approvedItem.end_date}"></td>
-        <td th:text="${approvedItem.highest_price}"></td>
+<!--        <td th:text="${approvedItem.highest_price}"></td>-->
 
         <td>
 
