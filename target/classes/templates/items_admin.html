@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<title>Item Manager</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<head th:include="/includes/head :: head (title='Welcome')" />
+<body >
+
+<br/><br/>
+<table>
+    <thead>
+    <tr>
+        <th >Item Id</th>
+        <th>Item name</th>
+        <th>Category</th>
+        <th>Reserve price</th>
+        <th>Evaluation</th>
+        <th >Picture</th>
+        <th style="width:350px">Description</th>
+<!--        <th>Timestamp</th>-->
+        <th colspan="3">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item: ${listOfItems}">
+        <td th:text="${item.item_id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.category_id.getCategory_name()}"></td>
+        <td th:text="${item.reserve_price}"></td>
+        <td th:text="${item.evaluation}"></td>
+        <td><img th:src="@{'data:image/'+${item.image.type}+';base64,'+${item.image.data}}" height="200px"></td>
+        <td th:text="${item.description}" style="width: 350px; overflow: auto"></td>
+<!--        <td th:text="${item.timestamp}"></td>-->
+        <td>
+
+            <a th:href="@{ ${item.approvedItem!=null? '#': '/approve/' + (__${item.item_id}__)}}" th:text="${item.approvedItem!=null? 'Approved':'Approve'}">Approve</a></td>
+
+        <td><a th:href="@{'/edit/' + ${item.item_id}}">Edit</a> </td>
+
+
+          <td>  <a th:href="@{'/delete/' + ${item.item_id}}">Delete</a>
+        </td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

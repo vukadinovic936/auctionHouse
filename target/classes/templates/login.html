@@ -1,0 +1,23 @@
+<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+
+<div class="container">
+</div>
+<form th:action="@{/login}" method="post"  class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <div class="form-group @{error !=null ? 'has-error': ''}">
+        <span th:text="${message}"></span>
+        <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
+        <input type="password"  name="password" class="form-control" placeholder="Password" required />
+        <span th:text="${error}"></span>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/registration}">Create an account</a></div>
+
+        <br><br>
+        <a href="/items">See the items</a>
+    </div>
+</form>
+</div>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
+

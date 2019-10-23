@@ -1,47 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/css/items.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Item Manager</title>
+</head>
+<head th:include="/includes/head :: head (title='Welcome')" />
+<body>
+<div class="container">
+    <div class="row">
+        <a  th:each="item:${listOfItems}" th:href="'item/'+${item.approved_item_id}" class="col-sm-4" >
+        <div >
 
-<head th:replace="/includes/head :: head (title='Welcome')" xmlns:th="http://www.w3.org/1999/xhtml"/>
-<a th:href="@{'/new/'+${username}}">Create new item</a>
-<br/><br/>
-<table>
-    <thead>
-    <tr>
-        <th>Item Id</th>
-        <th>Item name</th>
-        <th>Category</th>
-        <th>Reserve price</th>
-        <th>Evaluation</th>
-        <th>Picture</th>
-        <th>Description</th>
-<!--        <th>Timestamp</th>-->
-        <th colspan="3">Actions</th>
-    </tr>
-    </thead>
-        <tbody>
-        <tr th:each="item: ${listOfItems}">
+            <p th:text="${item.approved_item.name}"></p>
+            <img th:src="@{'data:image/'+${item.approved_item.image.type}+';base64,'+${item.approved_item.image.data}}" height="200px">
+            <hr>
+            <p th:text="${item.approved_item.description}"></p>
+            <p th:text="'Category: '+${item.approved_item.category_id.getCategory_name()}"></p>
 
-                    <td th:text="${item.item_id}"></td>
-
-                    <td th:text="${item.name}"></td>
-
-<!--                    <td th:text="${item.category_id.getCategory_name()}"></td> -->
-
-                    <td th:text="${item.reserve_price}"></td>
-                    <td th:text="${item.evaluation}"></td>
-                    <td><img th:src="@{'data:image/'+${item.image.type}+';base64,'+${item.image.data}}" height="200px"></td>
-                  <td th:text="${item.description}"></td>
-                    <td>
-
-                        <a th:href="@{ ${item.approvedItem!=null? '#': '/approve/' + (__${item.item_id}__)}}" >Approve</a></td>
-
-                    <td><a th:href="@{'/edit/' + ${item.item_id}+'/'+${username}}">Edit</a> </td>
-
-
-                      <td>  <a th:href="@{'/delete/' + ${item.item_id}}">Delete</a>
-                    </td>
-
-            </tr>
-            </tbody>
-
-</table>
+        </div>
+        </a>
+    </div>
+</div>
 
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
+</body>
+</html>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
+</body>
+</html>
+>>>>>>> jns170/auctionhouse-master

@@ -1,0 +1,26 @@
+ .col-sm-4:hover
+{
+    border: 1px solid darkslategrey;
+    text-decoration: none;
+     background: #fafafa;
+     color: #0b0d0e;
+    border-radius: 30px;
+
+
+}
+ .col-sm-4
+ {
+     color: #0b0d0e;
+     text-align: center;
+     border: 1px solid white;
+     margin: 50px 0;
+ }
+
+ hr{
+     width: 75%;
+ }
+
+/*.row*/
+/*{*/
+/*    margin: 100px 0;*/
+/*}*/

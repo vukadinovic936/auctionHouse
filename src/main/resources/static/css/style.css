@@ -1,0 +1,11 @@
+body{
+    /*border: 1px blue solid;*/
+    /*border-radius: 30px;*/
+    /*margin: auto;*/
+    text-align: center;
+}
+table,th,tr,td{
+    border: 1px black solid;
+    margin:auto;
+    padding: 15px ;
+}

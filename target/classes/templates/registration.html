@@ -1,0 +1,28 @@
+<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+    <div class="container">
+
+    <span style="color:red" th:text="*{errors}"></span>
+    <form method="POST" modelAttribute="userForm" th:action="@{/registration}" th:object="${userForm}"  class="form-signin">
+        <h1> SIGN UP </h1>
+        <div class="form">
+            <label> Username </label>
+            <input type="text" th:field="*{username}" class="form-control" placeholder="Username" th:required="required" autofocus="true"/>
+        </div>
+
+        <div class="form">
+
+            <label> Password</label>
+            <input type="password" th:field="*{password}" class="form-control" th:required="required" placeholder="Password"/>
+
+        </div>
+
+        <div class="form">
+            <label> Confirm Password</label>
+            <input type="password" th:field="*{passwordConfirm}" th:required="required" class="form-control" placeholder="Confirm your password"/>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form>
+
+</div>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
+

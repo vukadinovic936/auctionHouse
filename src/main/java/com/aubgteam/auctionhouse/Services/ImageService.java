@@ -19,7 +19,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    public Image storeImage(MultipartFile imagePath) throws IOException  {
+    public Image save(MultipartFile imagePath) throws IOException  {
         String fileName = StringUtils.cleanPath(imagePath.getOriginalFilename());
 
 //        try {
@@ -38,12 +38,12 @@ public class ImageService {
 
     }
 
-    public Image getImage(long fileId) {
+    public Image get(long fileId) {
         return imageRepository.findById(fileId).orElse(null);
 //                .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));
     }
 
-    public void deleteImage(long imageId)
+    public void delete(long imageId)
     {
         imageRepository.deleteById(imageId);
     }
