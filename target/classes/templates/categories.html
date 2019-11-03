@@ -1,77 +1,34 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">     <!-- needs to be specified in order to use thymeleaf -->
-<head>
-    <meta charset="UTF-8">
-    <title>Categories</title>
-    <style>
 
-        table {
-            width: 100%;
-            background-color: slategrey;
-            overflow: auto;
-            font-weight: bold;
-            border-collapse: collapse;
-
-        }
-
-        table  td {
-
-            padding: 12px;
-            color: #505050;
-            text-decoration: none;
-            font-weight: bolder;
-            font-size: 17px;
-            width: 15%;
-            text-align: center;
-            background-color: #f1f1f1;
-        }
-
-        td a{
-            color: #505050;
-            font-weight: bolder;
-        }
-
-        tr td.new {
-            background-color: #DAAD86;
-            color: #484848;
-            font-weight: bolder;
-        }
-
-        table td:hover {
-            background-color: #FBEEC2;
-        }
-
-        table  td:active {
-            background-color: #BC986A;
-        }
-    </style>
-</head>
-<body>
-
-
-
-
+<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="container">
 <div align="center">
 
 
     <!-- create a table which displays a list of categories -->
-    <table border="1">
+    <table border="1" class="category_table">
         <tr th:each="category : ${listCategories}">        <!-- iterates through the collection of categories -->
             <td th:text="${category.category_name}">       <!-- value for the column -->
                 Category
             </td>
 
             <!-- actions column -->
+
+
+            <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
             <td>
-                <a   th:href="@{'/edit_category/' + ${category.id}}"> Edit </a>   <!-- hyperlink for the edit action, specifies the URL -->
+                <a   th:href="@{'admin/edit_category/' + ${category.id}}"> Edit </a>   <!-- hyperlink for the edit action, specifies the URL -->
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <a  th:href="@{'/delete_category/' + ${category.id}}"> Delete </a>
+                <a  th:href="@{'admin/delete_category/' + ${category.id}}"> Delete </a>
             </td>
+            </div>
 
         </tr>
-        <tr> <td class="new" colspan="2"> <a  href ="/new_category"> + Add new category  </a> </td></tr>
+        <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+        <tr> <td class="new" colspan="2"> <a  href ="admin/new_category"> + Add new category  </a> </td></tr>
+        </div>
     </table>
+</div>
 </div>
 </body>
 </html>

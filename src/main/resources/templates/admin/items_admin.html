@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/static/css/style.css" type="text/css">
 <title>Item Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -38,12 +38,12 @@
 <!--        <td th:text="${item.timestamp}"></td>-->
         <td>
 
-            <a th:href="@{ ${item.approvedItem!=null? '#': '/approve/' + (__${item.item_id}__)}}" th:text="${item.approvedItem!=null? 'Approved':'Approve'}">Approve</a></td>
+            <a th:href="@{ ${item.approvedItem!=null? '#': '/admin/approve/' + (__${item.item_id}__)}}" th:text="${item.approvedItem!=null? 'Approved':'Approve'}">Approve</a></td>
 
-        <td><a th:href="@{'/edit/' + ${item.item_id}}">Edit</a> </td>
+        <td><a th:href="@{'/admin/edit/' + ${item.item_id}}">Edit</a> </td>
 
 
-          <td>  <a th:href="@{'/delete/' + ${item.item_id}}">Delete</a>
+          <td>  <a th:href="@{'/admin/delete/' + ${item.item_id}}">Delete</a>
         </td>
 
     </tr>

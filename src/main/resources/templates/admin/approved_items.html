@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Item Manager</title>
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 
@@ -29,10 +29,10 @@
 
         <td>
 
-            <a th:href="@{'/edit_approved_item/' + ${approvedItem.approved_item_id}}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/admin/edit_approved_item/' + ${approvedItem.approved_item_id}}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp;
 
 
-            <a th:href="@{'/delete_approved_item/' + ${approvedItem.approved_item_id}}">Delete</a>
+            <a th:href="@{'/admin/delete_approved_item/' + ${approvedItem.approved_item_id}}">Delete</a>
         </td>
 
     </tr>

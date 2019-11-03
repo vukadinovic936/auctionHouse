@@ -30,23 +30,23 @@ public class CategoryController {
     }
 
     /* handler method for creating a new category */
-    @RequestMapping("/new_category")                               /*mapping the method to a URL */
+    @RequestMapping("/admin/new_category")                               /*mapping the method to a URL */
     public String showNewCategoryForm(Model model)
     {
         Category category = new Category();              /* new category object */
         model.addAttribute("category", category);    /* set the object as a new model attribute */
-        return "new_category";                          /* returns the html page with this name */
+        return "/admin/new_category";                          /* returns the html page with this name */
     }
 
     /* handler methods for the save actions when creating a new category */
-    @RequestMapping(value ="/save_category", method = RequestMethod.POST)                   // URL and method specification
+    @RequestMapping(value = "/admin/save_category", method = RequestMethod.POST)                   // URL and method specification
     public String saveCategory(@ModelAttribute("category") @Valid Category category, BindingResult binding_result)     // binds a method parameter to a named model attribute and then exposes it to a web view
     {
 
 
         if(binding_result.hasErrors())
         {
-            return "new_category";
+            return "/admin/new_category";
         }
         else
         {
@@ -56,10 +56,10 @@ public class CategoryController {
     }
 
     //handler method for edit
-    @RequestMapping("/edit_category/{id}")
+    @RequestMapping("/admin/edit_category/{id}")
     public ModelAndView showEditCategoryForm(@PathVariable(name = "id") Long id)  //@PathVariable identifies the pattern that is used in the URI for the incoming request
     {
-        ModelAndView mav = new ModelAndView("edit_category");        //create a model and view object
+        ModelAndView mav = new ModelAndView("/admin/edit_category");        //create a model and view object
 
         Category category = service.get(id);                                //gets the details of the selected category by id
         mav.addObject("category", category);                  //add the category object to the model and view
@@ -67,7 +67,7 @@ public class CategoryController {
     }
 
     //handler method for delete
-    @RequestMapping("/delete_category/{id}")
+    @RequestMapping("/admin/delete_category/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id)    //read the product id
     {
         service.delete(id);               //call service.delete

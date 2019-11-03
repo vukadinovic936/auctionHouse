@@ -3,7 +3,6 @@ package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Item;
 import com.aubgteam.auctionhouse.Services.ApprovedItemService;
-import com.aubgteam.auctionhouse.Services.ImageService;
 import com.aubgteam.auctionhouse.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class ApprovedItemController {
         return "items";
     }
 
-    @RequestMapping("/approve/{id}")
+    @RequestMapping("/admin/approve/{id}")
     public String showNewApprovedItemPage(Model model, @PathVariable(name = "id") long item_id
     ) {
         ApprovedItem approvedItem1 = new ApprovedItem();
@@ -46,10 +45,10 @@ public class ApprovedItemController {
 //        model.addAttribute("item", itemService.get(item_id));
 
 //
-        return "new_approved_item";
+        return "/admin/new_approved_item";
     }
 
-    @RequestMapping(value = "/save_approved_item", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/save_approved_item", method = RequestMethod.POST)
     public String saveApprovedItem(@ModelAttribute("approved_item") ApprovedItem approvedItem
     ) {
 //        approvedItem.setApproved_item_id(aItem.getItem_id());
@@ -58,27 +57,27 @@ public class ApprovedItemController {
         approvedItem.setApproved_item(item);
         approvedItemService.save(approvedItem);
 //        itemService.saveApprovedItem(item, approvedItem);
-        return "redirect:/approved_items";
+        return "redirect:/admin/approved_items";
 //        return (Long.toString(approvedItem.getApproved_item_id()));
     }
 
-    @RequestMapping("/edit_approved_item/{id}")
+    @RequestMapping("/admin/edit_approved_item/{id}")
     public String editApprovedItem(Model model, @PathVariable (name ="id")long id)    {
         model.addAttribute("approvedItem", approvedItemService.get(id));
-        return "edit_approved_item";
+        return "/admin/edit_approved_item";
     }
 
-    @RequestMapping("/delete_approved_item/{id}")
+    @RequestMapping("/admin/delete_approved_item/{id}")
     public String deleteApprovedItem(@PathVariable (name="id") long id)
     {
         approvedItemService.delete(id);
-        return "redirect:/approved_items";
+        return "redirect:/admin/approved_items";
     }
 
-    @RequestMapping("/approved_items")
+    @RequestMapping("/admin/approved_items")
     public String viewApprovedItemHomePage(Model model) {
         List<ApprovedItem> listOfApprovedItems = approvedItemService.listAll();
         model.addAttribute("listOfApprovedItems", listOfApprovedItems);
-        return "approved_items";
+        return "/admin/approved_items";
     }
 }

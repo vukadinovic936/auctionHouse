@@ -12,15 +12,21 @@
             </td>
 
             <!-- actions column -->
+
+
+            <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
             <td>
-                <a   th:href="@{'/edit_category/' + ${category.id}}"> Edit </a>   <!-- hyperlink for the edit action, specifies the URL -->
+                <a   th:href="@{'admin/edit_category/' + ${category.id}}"> Edit </a>   <!-- hyperlink for the edit action, specifies the URL -->
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <a  th:href="@{'/delete_category/' + ${category.id}}"> Delete </a>
+                <a  th:href="@{'admin/delete_category/' + ${category.id}}"> Delete </a>
             </td>
+            </div>
 
         </tr>
-        <tr> <td class="new" colspan="2"> <a  href ="/new_category"> + Add new category  </a> </td></tr>
+        <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+        <tr> <td class="new" colspan="2"> <a  href ="admin/new_category"> + Add new category  </a> </td></tr>
+        </div>
     </table>
 </div>
 </div>
