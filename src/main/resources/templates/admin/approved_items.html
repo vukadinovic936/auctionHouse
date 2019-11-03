@@ -1,0 +1,34 @@
+<head th:replace="/includes/head :: head (title = 'Approved Items' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<table>
+    <thead>
+    <tr>
+        <th>Item Id</th>
+        <th>Start date</th>
+        <th>End date</th>
+<!--        <th>Highest price</th>-->
+        <th colspan="2">Actions</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="approvedItem: ${listOfApprovedItems}">
+        <td th:text="${approvedItem.approved_item_id}"></td>
+        <td th:text="${approvedItem.start_date}"></td>
+        <td th:text="${approvedItem.end_date}"></td>
+<!--        <td th:text="${approvedItem.highest_price}"></td>-->
+
+        <td>
+
+            <a th:href="@{'/admin/edit_approved_item/' + ${approvedItem.approved_item_id}}">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+            <a th:href="@{'/admin/delete_approved_item/' + ${approvedItem.approved_item_id}}">Delete</a>
+        </td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

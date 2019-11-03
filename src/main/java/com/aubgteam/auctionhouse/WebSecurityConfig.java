@@ -31,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // in .hasRole("ADMIN") add pages that can be visited by ADMINS
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/registration","/static/**", "/js/**","/css/**").permitAll()
-                .antMatchers("/**").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/registration","/static/**", "/js/**","/css/**","/items").permitAll()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/*").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

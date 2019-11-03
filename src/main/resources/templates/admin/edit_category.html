@@ -1,11 +1,11 @@
 
-<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<head th:replace="/includes/head :: head (title = 'Edit Category' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div class="category_div" align="center">
     <h1> Edit category</h1>
     <br/>
 
     <!-- similar form to create new category -->
-    <form action="#" th:action="@{/save_category}" th:object="${category}" method="post">
+    <form action="#" th:action="@{/admin/save_category}" th:object="${category}" method="post">
         <table border="0" cellpadding="10">
 
             <tr>
@@ -26,5 +26,5 @@
 
     </form>
 </div>
-</body>
-</html>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

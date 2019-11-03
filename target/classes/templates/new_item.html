@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Create New Item</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/readDataAsUrl.js}"></script>
-</head>
-<head th:include="/includes/head :: head (title='Welcome')" />
-<body>
+
+<head th:replace="/includes/head :: head (title='Welcome')" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div align="center">
     <h1>Create New Item</h1>
     <br />
@@ -56,5 +47,4 @@
         </table>
     </form>
 </div>
-</body>
-</html>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

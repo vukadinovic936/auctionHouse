@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ItemController {
@@ -40,14 +39,14 @@ public class ItemController {
     private ApprovedItemService approvedItemService;
 
 
-    @RequestMapping("/items_admin")
+    @RequestMapping("/admin/items_admin")
     public String viewItemAsAdmin(Model model)
      {
         List<Item> listOfItems = itemService.listAll();
         model.addAttribute("listOfItems", listOfItems);
         model.addAttribute("imageService", imageService);
 
-        return "items_admin";
+        return "/admin/items_admin";
     }
 
     @RequestMapping("/new/{username}")
@@ -61,7 +60,7 @@ public class ItemController {
     }
 
 
-    @RequestMapping(value = {"/save_item/{username}","/save_item/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/save_item/{username}","/admin/save_item/"}, method = RequestMethod.POST)
     public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item, @PathVariable(name = "username", required = false) String username) {
 
         try
@@ -99,9 +98,9 @@ public class ItemController {
         }
     }
 
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/admin/edit/{id}")
     public ModelAndView showEditItemPage(@PathVariable(name = "id") long id) {
-        ModelAndView mav = new ModelAndView("edit_item");
+        ModelAndView mav = new ModelAndView("/admin/edit_item");
         Item item = itemService.get(id);
         mav.addObject("item", item);
 //        mav.addObject("username",username);
@@ -109,10 +108,10 @@ public class ItemController {
         return mav;
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("/admin/delete/{id}")
     public String deleteItem(@PathVariable(name = "id") int id) {
         approvedItemService.delete(id);
         itemService.delete(id);
-        return "redirect:/items_admin";
+        return "redirect:/admin/items_admin";
     }
 }

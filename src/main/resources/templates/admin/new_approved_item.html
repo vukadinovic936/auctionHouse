@@ -1,10 +1,12 @@
+
+<head th:replace="/includes/head :: head (title = 'Approved Items' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <div align="center">
     <h1>Approve New Item</h1>
     <br />
 
-    <form action="#" th:action="@{/save_approved_item}" th:object="${approvedItem}"
+    <form action="#" th:action="@{/admin/save_approved_item}" th:object="${approvedItem}"
           method="post">
 
         <table border="0" cellpadding="10">
@@ -32,5 +34,5 @@
         </table>
     </form>
 </div>
-</body>
-</html>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

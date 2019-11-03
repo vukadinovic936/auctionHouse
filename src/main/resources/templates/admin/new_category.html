@@ -1,11 +1,11 @@
 
-<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<head th:replace="/includes/head :: head (title = 'New Category' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div class="category_div" align="center">
     <h1> Create new category</h1>
     <br/>
 
     <!-- create new product form -->
-    <form action="#" th:action="@{/save_category}" th:object="${category}" method="post">  <!-- here is specified the action and the related URL related to it, as well as the object -->
+    <form action="#" th:action="@{/admin/save_category}" th:object="${category}" method="post">  <!-- here is specified the action and the related URL related to it, as well as the object -->
 
         <!-- a table that displays the text fields -->
         <table border="0" cellpadding="10">
@@ -31,5 +31,5 @@
 
     </form>
 </div>
-</body>
-</html>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

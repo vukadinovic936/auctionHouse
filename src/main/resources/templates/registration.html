@@ -2,27 +2,61 @@
     <div class="container">
 
     <span style="color:red" th:text="*{errors}"></span>
-    <form method="POST" modelAttribute="userForm" th:action="@{/registration}" th:object="${userForm}"  class="form-signin">
+    <form method="POST" modelAttribute="userForm" id="form1" th:action="@{/registration}" th:object="${userForm}"  class="form-signin">
         <h1> SIGN UP </h1>
         <div class="form">
             <label> Username </label>
             <input type="text" th:field="*{username}" class="form-control" placeholder="Username" th:required="required" autofocus="true"/>
         </div>
+        <div class="form">
+            <label> Name </label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Name" th:required="required" autofocus="true"/>
+        </div>
+        <div class="form">
+            <label> Email </label>
+            <input type="text" th:field="*{email}" class="form-control" placeholder="Email" th:required="required" autofocus="true"/>
+        </div>
 
         <div class="form">
-
             <label> Password</label>
             <input type="password" th:field="*{password}" class="form-control" th:required="required" placeholder="Password"/>
 
         </div>
-
         <div class="form">
             <label> Confirm Password</label>
             <input type="password" th:field="*{passwordConfirm}" th:required="required" class="form-control" placeholder="Confirm your password"/>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form>
 
-</div>
+        <div class="form">
+            <label> Owners Name </label>
+            <input type="text" th:field="*{owner_name}" th:required="required" class="form-control" placeholder="EX: John Doe"/>
+        </div>
+    <h2> Credit Card Info</h2>
+        <div class="form">
+                <label>Credit Card Number </label>
+                <input type="text" minlength="16" maxlength="19" th:field="*{credit_card_number}" th:required="required" class="form-control" placeholder="5412 7501 2345 0987"/>
+        </div>
+
+        <div class="form">
+            <label> CVV </label>
+            <input type="text" minlength="3" maxlength="4" th:field="*{cvv}" th:required="required" class="form-control" placeholder="EX: 126"/>
+        </div>
+
+        <div class="form">
+                <label> Billing Address </label>
+                <input type="text" th:field="*{billing_address}" th:required="required" class="form-control" placeholder="EX:"/>
+            </div>
+
+
+            <div class="form">
+                <label> Expire_date </label>
+                <input type="date" th:field="*{expire_date}" th:min="${#dates.format(#dates.createNow(),'YYYY-MM-dd')}"  h:required="required" class="form-control" placeholder="EX: 09/20"/>
+            </div>
+
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        </form>
+
+    </div>
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
 

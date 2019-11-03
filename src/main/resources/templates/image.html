@@ -1,5 +1,5 @@
 
-<head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<head th:replace="/includes/head :: head (title = 'Image' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div align="center">
     <h1>Create New Item</h1>
     <br />
@@ -8,5 +8,4 @@
        <img th:src="@{'data:image/'+${imageD.type}+';base64,'+${base64Path}}" width="100px"/>
 
 </div>
-</body>
-</html>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
