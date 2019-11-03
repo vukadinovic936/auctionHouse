@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<head th:replace="/includes/head :: head (title = 'New Categor' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<h2>Users</h2>
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>name</th>
+        <th>email</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each = "user: ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a th:href="@{'/admin/deleteUser/' + ${user.id}}">Delete</a></td>
+
+    </tr>
+</table>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

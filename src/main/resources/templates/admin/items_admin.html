@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8"/>
-<link rel="stylesheet" href="/static/css/style.css" type="text/css">
-<title>Item Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-</head>
-<head th:include="/includes/head :: head (title='Welcome')" />
+<head th:include="/includes/head :: head (title='Items')" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <body >
 
 <br/><br/>
@@ -51,5 +42,4 @@
 
 </table>
 
-</body>
-</html>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

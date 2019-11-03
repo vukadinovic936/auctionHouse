@@ -1,8 +1,13 @@
 package com.aubgteam.auctionhouse.Controllers;
+import com.aubgteam.auctionhouse.Models.CreditCard;
+import com.aubgteam.auctionhouse.Models.RegistrationForm;
 import com.aubgteam.auctionhouse.Models.User;
+import com.aubgteam.auctionhouse.Repositories.CreditCardRepository;
+import com.aubgteam.auctionhouse.Repositories.ItemRepository;
 import com.aubgteam.auctionhouse.Services.SecurityService;
 import com.aubgteam.auctionhouse.Services.UserService;
 import com.aubgteam.auctionhouse.Validator.UserValidator;
+import org.hibernate.validator.cfg.defs.CreditCardNumberDef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +22,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    CreditCardRepository creditCardRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @Autowired
@@ -25,7 +33,7 @@ public class UserController {
     //load registration page with userForm displayed, if Submitted redirect to PostMapping(registration)
     @GetMapping("/registration")
     public String registration(Model model){
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userForm", new RegistrationForm());
         //registration .html file displays error if something wrong was entered in userForm since this is get mapping, there won't be any errors
         model.addAttribute("errors", " ");
         return "registration";
@@ -33,11 +41,15 @@ public class UserController {
     //Checks if all the fields are valid and if they are creates a new user in database
     //If there is an error reload the page and display the error
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,Model model ) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("userForm") RegistrationForm userForm,BindingResult bindingResult,Model model ) {
+        User userData= new User(userForm.getUsername(),userForm.getName(),userForm.getEmail(),userForm.getPassword(),userForm.getPasswordConfirm());
+        CreditCard creditCardData= new CreditCard(userForm.getCredit_card_number(),userForm.getExpire_date(),userForm.getCvv(),userForm.getOwner_name(),userForm.getBilling_address());
+
+        //perform validation
         if(bindingResult.hasErrors()){
             String errors="";
-            User user = (User) userForm;
+            User user = (User) userData;
+            CreditCard card =(CreditCard) creditCardData;
             Errors binres=bindingResult;
             if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
                 errors+="Please use between 6 and 32 characters.\n";
@@ -59,9 +71,11 @@ public class UserController {
             model.addAttribute("errors",errors) ;
             //reload and display eror
             return "/registration";
-        }else {
+        }else{
             //Create a new user in DB
-            userService.save(userForm);
+
+            userData.setCredit_card(creditCardData);
+            userService.save(userData);
             securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
             return "redirect:/welcome";
         }
@@ -95,5 +109,10 @@ public class UserController {
         }
         model.addAttribute("currentUser", username);
         return "welcome";
+    }
+    @RequestMapping("/admin/deleteUser/{id}")
+    public String deleteUser(@PathVariable(name="id") Long id){
+        userService.deleteUser(id);
+    return "redirect:/admin/userInfo";
     }
 }
