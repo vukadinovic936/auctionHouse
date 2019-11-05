@@ -1,0 +1,35 @@
+
+<head th:replace="/includes/head :: head (title = 'New Category' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="category_div" align="center">
+    <h1> Create new category</h1>
+    <br/>
+
+    <!-- create new product form -->
+    <form action="#" th:action="@{/admin/save_category}" th:object="${category}" method="post">  <!-- here is specified the action and the related URL related to it, as well as the object -->
+
+        <!-- a table that displays the text fields -->
+        <table border="0" cellpadding="10">
+
+            <tr>
+                <td> Category ID :</td>   <!-- textfield 1 -->
+                <td> <div class="category_input"><input class="category_input" type="text" th:field="*{id}" /></div></td>
+                <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</td>
+            </tr>
+
+            <tr>
+                <td> Category Name :</td>   <!-- textfield 2 -->
+                <td> <div class="category_input"><input type="text" th:field="*{category_name}" /></div></td>
+                <td th:if="${#fields.hasErrors('category_name')}" th:errors="*{category_name}">Name Error</td>
+            </tr>
+
+            <tr>
+                <!-- submit button -->
+                <td colspan="2" style="text-align: center;"> <button type="submit" style="background-color: #D9B45F; cursor:pointer; border: none; padding: 10px 20px; font-size: 20px; margin: 4px 2px; box-shadow:inset 0px -3px 7px 0px #C89C37; color: white;"/> Save </td>
+            </tr>
+        </table>
+
+
+    </form>
+</div>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
