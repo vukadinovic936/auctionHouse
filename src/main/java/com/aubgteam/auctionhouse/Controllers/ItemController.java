@@ -60,7 +60,7 @@ public class ItemController {
     }
 
 
-    @RequestMapping(value = {"/admin/save_item/{username}","/admin/save_item/"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/save_item/{username}","/save_item/"}, method = RequestMethod.POST)
     public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item, @PathVariable(name = "username", required = false) String username) {
 
         try
