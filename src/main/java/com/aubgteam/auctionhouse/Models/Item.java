@@ -36,7 +36,9 @@ public class Item {
 
     private double evaluation;
 
-
+    @ManyToOne
+    @JoinColumn
+    private User highestBidder;
 //    private String image_URL;
 
 
