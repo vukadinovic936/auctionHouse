@@ -2,12 +2,12 @@
 <body>
 <div class="container">
     <div class="row">
-        <a  th:each="item:${listOfItems}" th:href="'item/'+${item.approved_item_id}" class="col-sm-4" >
+        <a  th:each="item:${listOfItems}" th:href="'item/'+${item.approved_item_id}" class="item col-sm-4" >
         <div >
 
             <p th:text="${item.approved_item.name}"></p>
             <img th:src="@{'data:image/'+${item.approved_item.image.type}+';base64,'+${item.approved_item.image.data}}" height="200px">
-            <hr>
+            <hr class="item">
             <p th:text="${item.approved_item.description}"></p>
             <p th:text="'Category: '+${item.approved_item.category_id.getCategory_name()}"></p>
 

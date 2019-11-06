@@ -1,4 +1,4 @@
- .col-sm-4:hover
+.item:hover
 {
     border: 1px solid darkslategrey;
     text-decoration: none;
@@ -8,7 +8,7 @@
 
 
 }
- .col-sm-4
+.item
  {
      color: #0b0d0e;
      text-align: center;
@@ -16,7 +16,7 @@
      margin: 50px 0;
  }
 
- hr{
+.item hr{
      width: 75%;
  }
 
