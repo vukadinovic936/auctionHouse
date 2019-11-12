@@ -1,11 +1,16 @@
 <head th:include="/includes/head :: head (title='Items')"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <body >
-
+<div class="ContentWrapper" th:with="arePendingItems = ${listOfItems.isEmpty()? false: true} ">
 <br/><br/>
+
+<form method="get" id="form" action="/admin/search_pending/">
+    <input type="text" th:value="${term}" onchange="document.getElementById('form').action = '/admin/search_pending/'+ this.value; "/>
+    <input type="submit" value="Search">
+</form>
 <!--<button th:onclick="${all=true}">All items</button>-->
 <!--<button th:onclick="${all=false}">Pending items</button>-->
-<table>
+<table th:if="${arePendingItems}">
     <thead>
     <tr>
         <th >Item Id</th>
@@ -44,5 +49,7 @@
     </tbody>
 
 </table>
+    <h3 th:unless="${arePendingItems}">There are no pending items matching your search term.</h3>
+</div>
 
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

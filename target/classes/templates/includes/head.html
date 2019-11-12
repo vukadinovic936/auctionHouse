@@ -11,9 +11,11 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title th:text="${title}"/>
         <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}"><link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
-        <link rel="stylesheet" href="/css/items.css" type="text/css">
-        <link rel="stylesheet" href="/css/mycss.css" type="text/css">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+        <link rel="stylesheet" th:href="@{/css/items.css}"  type="text/css">
+        <link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css">
+        <link rel="stylesheet" th:href="@{/css/mycss.css}"  type="text/css">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,7 +38,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:unless="${#request.isUserInRole('ADMIN')} " href="/items">Items</a>
-                    <a class="nav-link" th:if="${#request.isUserInRole('ADMIN')} " href="/admin/items_admin">Items</a>
+                    <a class="nav-link" th:if="${#request.isUserInRole('ADMIN')} " href="/admin/items_admin/">Items</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  th:href="@{/categories}">Categories</a>

@@ -4,6 +4,13 @@ body{
     /*margin: auto;*/
     text-align: center;
 }
+.ContentWrapper
+{
+    width: 80%;
+    text-align: center;
+    margin: auto auto 100px;
+    /*background: #0c5460;*/
+}
 table,th,tr,td{
     border: 1px black solid;
     margin:auto;
