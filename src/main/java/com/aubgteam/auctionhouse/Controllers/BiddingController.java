@@ -4,10 +4,7 @@ import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.BidForm;
 import com.aubgteam.auctionhouse.Models.Category;
 import com.aubgteam.auctionhouse.Models.Item;
-import com.aubgteam.auctionhouse.Services.ApprovedItemService;
-import com.aubgteam.auctionhouse.Services.CategoryService;
-import com.aubgteam.auctionhouse.Services.ItemService;
-import com.aubgteam.auctionhouse.Services.UserService;
+import com.aubgteam.auctionhouse.Services.*;
 import org.apache.tomcat.util.net.AprEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +24,8 @@ public class BiddingController {
     CategoryService categoryService;
     @Autowired
     UserService userService;
+    @Autowired
+    FollowService followService;
 
     @RequestMapping("/item/{id}")
     public String bidItem(@PathVariable (name="id") int id, Model model) {
@@ -58,6 +57,8 @@ public class BiddingController {
         }else{
             bid_state=1;
         }
+        //Check if the user is following the item
+        boolean match= followService.match(userService.findByUsername(userService.getLoggedInUsername()).getId(),item.getItem_id());
         // Add all the necessary properties to display
         model.addAttribute("name",item.getName());
         model.addAttribute("seller", item.getSellerId().getName());
@@ -73,22 +74,13 @@ public class BiddingController {
         model.addAttribute("bid_state",bid_state);
         model.addAttribute("start_date",item.getApprovedItem().getStart_date().toString());
         model.addAttribute("end_date",item.getApprovedItem().getEnd_date().toString());
+        model.addAttribute("follow",match);
         return "bid_item" ;
     }
     @RequestMapping("/bid_item/{id}")
     String bidItem(@ModelAttribute("bid_form") BidForm bidForm, @PathVariable (name="id") int id, Model model){
         Item it= itemService.get(id);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username="";
-        if (principal instanceof UserDetails) {
-
-            username = ((UserDetails)principal).getUsername();
-
-        } else {
-
-            username = principal.toString();
-
-        }
+        String username=userService.getLoggedInUsername();
         //change items highest bidder and evaluation price
         it.setHighestBidder(userService.findByUsername(username));
         it.setEvaluation(bidForm.getNew_offer());

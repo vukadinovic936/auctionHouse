@@ -4,6 +4,8 @@ import com.aubgteam.auctionhouse.Models.User;
 import com.aubgteam.auctionhouse.Repositories.CreditCardRepository;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,10 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    @Override
+    public User findById(long id){
+        return userRepository.findById(id).orElse(null);
+    }
 
 
     @Override
@@ -39,6 +45,20 @@ public class UserServiceImpl implements UserService {
 
     public void saveCreditCard(CreditCard card){
         cardRepository.save(card);
+    }
+    public String getLoggedInUsername(){
+        String username="";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+
+            username = principal.toString();
+
+        }
+        return username;
     }
 
     public List<User> getAllAdmins()

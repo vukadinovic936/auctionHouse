@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,5 +30,6 @@ public class ApprovedItem {
 //    @OneToOne
 //    @JoinColumn
 //    private User highest_bidder;
+
 
 }

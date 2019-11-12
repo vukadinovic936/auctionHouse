@@ -33,7 +33,4 @@ public class Category {
     @OneToMany(mappedBy = "category_id")
     private List<Item> items;
 
-
-
-
 }

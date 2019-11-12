@@ -3,8 +3,21 @@ package com.aubgteam.auctionhouse.Controllers;
 import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Image;
 import com.aubgteam.auctionhouse.Models.Item;
+import com.aubgteam.auctionhouse.Models.*;
 import com.aubgteam.auctionhouse.Repositories.CategoryRepository;
+import com.aubgteam.auctionhouse.Repositories.ItemRepository;
+import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import com.aubgteam.auctionhouse.Services.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -38,6 +52,13 @@ public class ItemController {
     @Autowired
     private ApprovedItemService approvedItemService;
 
+    @Autowired
+    private FollowService followService;
+
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    ItemRepository itemRepository;
 
 
 
@@ -167,4 +188,18 @@ public class ItemController {
         model.addAttribute("listOfItems", listOfMatchedApprovedItems);
         return "/admin/items_admin";
     }
+
+    @RequestMapping("/follow/{id}")
+    public String followItem(@PathVariable(name="id") int id)
+    {
+
+        String username = userService.getLoggedInUsername();
+        User user= userService.findByUsername(username);
+        Item item = itemService.get(id);
+
+        Follow follow = new Follow(user.getId(), item.getItem_id());
+        followService.save(follow)        ;
+        return "redirect:/item/{id}";
+    }
+
 }
