@@ -21,7 +21,7 @@
     </thead>
 
     <tbody>
-    <tr th:each="item: ${listOfItems}">
+    <tr>
         <td th:text="${item.item_id}"></td>
         <td th:text="${item.name}"></td>
         <td th:text="${item.category_id.getCategory_name()}"></td>

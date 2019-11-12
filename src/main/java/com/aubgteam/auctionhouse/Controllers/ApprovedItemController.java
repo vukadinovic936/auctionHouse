@@ -48,16 +48,16 @@ public class ApprovedItemController {
         return "/admin/new_approved_item";
     }
 
-    @RequestMapping(value = "/admin/save_approved_item", method = RequestMethod.POST)
-    public String saveApprovedItem(@ModelAttribute("approved_item") ApprovedItem approvedItem
+    @RequestMapping(value = "/save_approved_item", method = RequestMethod.POST)
+    public String saveApprovedItem(@ModelAttribute("approvedItem") ApprovedItem approvedItem1
     ) {
 //        approvedItem.setApproved_item_id(aItem.getItem_id());
 //        approvedItem.setApproved_item(aItem);
-        Item item = itemService.get(approvedItem.getApproved_item_id());
-        approvedItem.setApproved_item(item);
-        approvedItemService.save(approvedItem);
+        Item item = itemService.get(approvedItem1.getApproved_item_id());
+        approvedItem1.setApproved_item(item);
+        approvedItemService.save(approvedItem1);
 //        itemService.saveApprovedItem(item, approvedItem);
-        return "redirect:/admin/approved_items";
+        return "redirect:/admin/approved_items/";
 //        return (Long.toString(approvedItem.getApproved_item_id()));
     }
 
@@ -71,7 +71,7 @@ public class ApprovedItemController {
     public String deleteApprovedItem(@PathVariable (name="id") long id)
     {
         approvedItemService.delete(id);
-        return "redirect:/admin/approved_items";
+        return "redirect:/admin/approved_items/";
     }
 
     @RequestMapping("/admin/approved_items")

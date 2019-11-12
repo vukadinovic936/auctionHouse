@@ -1,0 +1,30 @@
+
+<head th:replace="/includes/head :: head (title = 'Edit Category' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="category_div" align="center" xmlns:th="http://www.w3.org/1999/xhtml" >
+    <h1> Edit category</h1>
+    <br/>
+
+    <!-- similar form to create new category -->
+    <form action="#" th:action="@{/admin/save_category}" th:object="${category}" method="post">
+        <table border="0" cellpadding="10">
+
+            <tr>
+                <td> Category ID :</td>
+                <td> <div class="category_input"> <input type="text" th:field="*{id}" readonly="readonly" /> </div></td>  <!-- the category id cannot be changed - it's set to read only -->
+            </tr>
+
+            <tr>
+                <td> Category Name :</td>
+                <td><div class="category_input"> <input type="text" th:field="*{category_name}" /></div></td>
+            </tr>
+
+            <tr>
+
+                <td colspan="2" style="text-align: center;"> <button type="submit" style="background-color: #D9B45F; cursor:pointer; border: none; padding: 10px 20px; font-size: 20px; margin: 4px 2px; box-shadow:inset 0px -3px 7px 0px #C89C37; color: white;"/> Save </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

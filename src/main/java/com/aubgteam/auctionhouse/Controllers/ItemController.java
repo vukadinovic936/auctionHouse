@@ -1,12 +1,10 @@
 package com.aubgteam.auctionhouse.Controllers;
 
+import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Image;
 import com.aubgteam.auctionhouse.Models.Item;
 import com.aubgteam.auctionhouse.Repositories.CategoryRepository;
-import com.aubgteam.auctionhouse.Services.ApprovedItemService;
-import com.aubgteam.auctionhouse.Services.ImageService;
-import com.aubgteam.auctionhouse.Services.ItemService;
-import com.aubgteam.auctionhouse.Services.UserServiceImpl;
+import com.aubgteam.auctionhouse.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,24 +39,42 @@ public class ItemController {
     private ApprovedItemService approvedItemService;
 
 
-    @RequestMapping("/admin/items_admin")
-    public String viewItemAsAdmin(Model model)
+
+
+
+//    @RequestMapping("/admin/items_admin")
+//    public String viewItemAsAdmin(Model model)
+    @RequestMapping({"/admin/items_admin/{pending}","/admin/items_admin/"})
+    public String viewItemAsAdmin(Model model, @PathVariable(name="pending",required = false) boolean pending)
      {
-        List<Item> listOfItems = itemService.listAll();
+         List<Item> listOfItems =  itemService.listAll();
+         if(pending) {
+             List<ApprovedItem> listOfApprovedItems = approvedItemService.listAll();
+
+             for(ApprovedItem t: listOfApprovedItems)
+             {
+                 listOfItems.remove(itemService.get(t.getApproved_item_id()));
+             }
+         }
         model.addAttribute("listOfItems", listOfItems);
         model.addAttribute("imageService", imageService);
+//        model.addAttribute("all", true);
 
         return "/admin/items_admin";
     }
 
     @RequestMapping("/new/{username}")
-    public String showNewItemPage(Model model, @PathVariable(name="username") String username) {
+    public String showNewItemPage(Model model, @PathVariable(name="username") String username) throws Exception{
         Item item = new Item();
-        model.addAttribute("item", item);
 
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("username", username);
-        return "new_item";
+
+
+            model.addAttribute("item", item);
+
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("username", username);
+            return "new_item";
+
     }
 
 
@@ -76,6 +94,11 @@ public class ItemController {
                 item.setImage(savedImage);
                 if (username != null) {
                     item.setSellerId(userService.findByUsername(username));
+//                   MailService.sendEmailToAdmin(userService.findByUsername(username), userService.getAllAdmins());
+                }
+                else
+                {
+                    item.setSellerId(itemService.get(item.getItem_id()).getSellerId());
                 }
 
             }
@@ -89,12 +112,16 @@ public class ItemController {
 
 
                 itemService.save(item);
+            if(username!=null)
+            {
+                MailService.sendEmailToAdmin(userService.findByUsername(username), userService.getAllAdmins(), item.getItem_id());
+            }
 
-                return "redirect:/";
+                return "redirect:/admin/items_admin/";
 
         }
         catch (Exception e) {
-            return "1";
+            return "redirect:/admin/items_admin";
         }
     }
 
@@ -110,8 +137,22 @@ public class ItemController {
 
     @RequestMapping("/admin/delete/{id}")
     public String deleteItem(@PathVariable(name = "id") int id) {
-        approvedItemService.delete(id);
+        if(approvedItemService.get(id)!=null) {
+            approvedItemService.delete(id);
+        }
         itemService.delete(id);
-        return "redirect:/admin/items_admin";
+        return "redirect:/admin/items_admin/";
+    }
+
+    @RequestMapping({"/admin/details/{id}"})
+    public String viewDetailsOfItem(Model model, @PathVariable(name="id") int id)
+    {
+        Item item =  itemService.get(id);
+
+        model.addAttribute("item", item);
+        model.addAttribute("imageService", imageService);
+//        model.addAttribute("all", true);
+
+        return "/admin/details_item";
     }
 }

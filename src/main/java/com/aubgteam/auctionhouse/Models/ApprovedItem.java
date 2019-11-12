@@ -26,6 +26,7 @@ public class ApprovedItem {
     private double highest_price=0;
 
 //    @OneToOne
+//    @JoinColumn
 //    private User highest_bidder;
 
 }
