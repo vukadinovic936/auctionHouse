@@ -56,6 +56,7 @@ public class ItemController {
                  listOfItems.remove(itemService.get(t.getApproved_item_id()));
              }
          }
+         model.addAttribute("term", "");
         model.addAttribute("listOfItems", listOfItems);
         model.addAttribute("imageService", imageService);
 //        model.addAttribute("all", true);
@@ -154,5 +155,16 @@ public class ItemController {
 //        model.addAttribute("all", true);
 
         return "/admin/details_item";
+    }
+
+    @RequestMapping(value = "/admin/search_pending/{term}")
+    public String showMatchedItems(Model model, @PathVariable (name = "term") String term)
+    {
+        List<Item> listOfMatchedApprovedItems = itemService.search(term);
+
+        model.addAttribute("term", term);
+        model.addAttribute("imageService", imageService);
+        model.addAttribute("listOfItems", listOfMatchedApprovedItems);
+        return "/admin/items_admin";
     }
 }

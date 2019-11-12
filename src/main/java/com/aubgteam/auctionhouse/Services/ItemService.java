@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class ItemService {
     private ItemRepository itemRepository;
 
     @Autowired
-    private ApprovedItemRepository approvedItemRepository;
+    private ApprovedItemService approvedItemService;
 
     public List<Item> listAll() {
         return itemRepository.findAll();
@@ -45,5 +46,20 @@ public class ItemService {
         itemRepository.save(item);
 
     }
+    public List<Item> search(String term)
+    {
+        term = term.toLowerCase();
+        List<Item> listOfPendingItems = this.listAll();
+        List<Item> listOfMatchedPendingItems = new ArrayList<>();
+        for (Item item: listOfPendingItems) {
+            if(approvedItemService.get(item.getItem_id())==null  && (item.getName().toLowerCase().contains(term)
+                    || item.getDescription().toLowerCase().contains(term)))
+            {
+                listOfMatchedPendingItems.add(item);
+            }
 
+        }
+
+        return listOfMatchedPendingItems;
+    }
 }
