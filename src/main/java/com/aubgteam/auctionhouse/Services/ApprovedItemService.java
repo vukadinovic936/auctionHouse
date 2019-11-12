@@ -25,7 +25,7 @@ public class ApprovedItemService {
     }
 
     public ApprovedItem get(long id) {
-        return approvedItemRepository.findById(id).get();
+        return approvedItemRepository.findById(id).orElse(null);
     }
 
     public void delete(long id) {

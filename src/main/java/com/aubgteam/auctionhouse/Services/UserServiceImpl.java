@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -37,6 +39,20 @@ public class UserServiceImpl implements UserService {
 
     public void saveCreditCard(CreditCard card){
         cardRepository.save(card);
+    }
+
+    public List<User> getAllAdmins()
+    {
+        List<User> users = userRepository.findAll();
+
+        for (User user: users)
+        {
+            if(user.getIs_admin()!=1)
+            {
+                users.remove(user);
+            }
+        }
+        return users;
     }
 
 }
