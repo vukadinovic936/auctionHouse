@@ -17,3 +17,33 @@ table,th,tr,td{
     padding: 15px ;
 }
 
+.button-items
+{
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    display: inline-block;
+    background: #F1F1F1;
+}
+
+.button-items *
+{
+    color: black;
+}
+.button-items a:hover
+{
+    color: #0c5460;
+    text-decoration: none;
+}
+.selected,
+.selected *
+{
+    color: white;
+    background: #0c5460;
+
+}
+.selected a:hover
+{
+    color: #C8D6CF;
+}
+

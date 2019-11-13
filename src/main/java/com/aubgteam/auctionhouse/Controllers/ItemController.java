@@ -9,6 +9,7 @@ import com.aubgteam.auctionhouse.Repositories.ItemRepository;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import com.aubgteam.auctionhouse.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -77,6 +78,7 @@ public class ItemController {
                  listOfItems.remove(itemService.get(t.getApproved_item_id()));
              }
          }
+         model.addAttribute("pending", pending);
          model.addAttribute("term", "");
         model.addAttribute("listOfItems", listOfItems);
         model.addAttribute("imageService", imageService);
@@ -136,7 +138,7 @@ public class ItemController {
                 itemService.save(item);
             if(username!=null)
             {
-                MailService.sendEmailToAdmin(userService.findByUsername(username), userService.getAllAdmins(), item.getItem_id());
+                MailService.sendEmailToAdmin(userService.getAllAdmins(), item.getItem_id());
             }
 
                 return "redirect:/admin/items_admin/";
@@ -171,6 +173,7 @@ public class ItemController {
     {
         Item item =  itemService.get(id);
 
+
         model.addAttribute("item", item);
         model.addAttribute("imageService", imageService);
 //        model.addAttribute("all", true);
@@ -178,11 +181,11 @@ public class ItemController {
         return "/admin/details_item";
     }
 
-    @RequestMapping(value = "/admin/search_pending/{term}")
-    public String showMatchedItems(Model model, @PathVariable (name = "term") String term)
+    @RequestMapping(value = "/admin/search_item/{pending}/{term}")
+    public String showMatchedItems(Model model, @PathVariable (name = "term") String term, @PathVariable(name="pending") boolean pending)
     {
-        List<Item> listOfMatchedApprovedItems = itemService.search(term);
-
+        List<Item> listOfMatchedApprovedItems = itemService.search(term, pending);
+        model.addAttribute("pending",pending);
         model.addAttribute("term", term);
         model.addAttribute("imageService", imageService);
         model.addAttribute("listOfItems", listOfMatchedApprovedItems);

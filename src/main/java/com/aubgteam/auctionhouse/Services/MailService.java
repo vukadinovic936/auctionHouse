@@ -35,7 +35,7 @@ public class MailService {
 //    @Autowired
 //    static UserService userService;
 
-private static Properties loadProps()
+private static Properties getProps()
 {
     Properties props = new Properties();
     props.put("mail.smtp.host", "smtp.gmail.com");
@@ -46,12 +46,12 @@ private static Properties loadProps()
 }
 
 
-    public static void sendEmailToAdmin(User user, List<User> admins, long id) throws MessagingException
+    public static void sendEmailToAdmin(List<User> admins, long id)
     {
         final String username = "softwareaubg@gmail.com";
         final String password = "op3n737am3!";
 
-        Properties prop = loadProps(); //TLS
+        Properties prop = getProps(); //TLS
 
         Session session = Session.getInstance(prop,
                 new javax.mail.Authenticator() {

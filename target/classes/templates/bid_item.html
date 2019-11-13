@@ -17,8 +17,15 @@
             <img class="img-responsive" th:src="@{'data:image/'+${image.type}+';base64,'+${image.data}}" height="300px">
         </div>
         <div class="col-sm-4">
+            <div th:if="${follow}==false">
+            <a th:href="@{/follow/{id}(id=${item_id})}" class="btn btn-primary btn-lg active"> FOLLOW </a>
             <p> Description </p>
             <p th:text="${description}"></p>
+            </div>
+        <div th:if="${follow}==true">
+           Following
+        </div>
+
         </div>
     </div>
     <br/>
