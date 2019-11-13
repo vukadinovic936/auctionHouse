@@ -28,7 +28,7 @@ public class EmailSender {
         try{
             List<String> list =followService.getFollowersEmails();
             for( String s: list){
-               sendEmail(s,"hi","hey dude");
+               sendEmail(s,"Bidding Open!","The item you are following is open for bidding");
             }
             return "Success";
         }catch(Exception ex){
