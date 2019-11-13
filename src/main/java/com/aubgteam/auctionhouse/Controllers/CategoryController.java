@@ -1,6 +1,8 @@
 package com.aubgteam.auctionhouse.Controllers;
 
+import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Category;
+import com.aubgteam.auctionhouse.Services.ApprovedItemService;
 import com.aubgteam.auctionhouse.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,8 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService service;        /*reference to an instance of CategoryService */
-
+    @Autowired
+    private ApprovedItemService approvedItemService;
 
     //implementation of the handler methods
 
@@ -25,6 +28,8 @@ public class CategoryController {
     public String viewHomePage(Model model)                        /* declare model parameter from Spring MVC */
     {
         List<Category> listCategories = service.listAll();         /* in the home page a list of categories is displayed */
+        List<ApprovedItem> listOfItems=approvedItemService.listAll();
+        model.addAttribute("listOfItems",listOfItems);
         model.addAttribute("listCategories", listCategories);   /* set object listCategories to the model */
         return ("categories");                                           /* returns the name of the view */
     }
@@ -73,4 +78,24 @@ public class CategoryController {
         service.delete(id);               //call service.delete
         return "redirect:/categories";              //redirect to the home page after the category has been deleted
     }
+    @RequestMapping(value = "/category/{id}")
+   public String getCategory(@PathVariable("id") Long id, Model model)
+    {
+       Category category = service.get(id);
+        model.addAttribute("category", category);
+        model.addAttribute("approvedItemService", approvedItemService);
+        // model.addAttribute("data", approvedItemRepository.findAll(PageRequest.of(page, 1)));
+        //model.addAttribute("currentPage", page);
+        return "category";
+    }
+
+   @RequestMapping("/search_category")
+   public ModelAndView searchCategory(@RequestParam String word)
+    {
+       ModelAndView mav = new ModelAndView("search_result_category.html");
+       List<Category> result = service.searchCategory(word);
+       mav.addObject("result", result);
+        return mav;
+    }
+
 }

@@ -36,6 +36,10 @@ public class ApprovedItemService {
 
         approvedItemRepository.deleteById(id);
     }
+    public List<ApprovedItem> search(String keyword)
+    {
+        return approvedItemRepository.search(keyword);
+    }
 
 
 }

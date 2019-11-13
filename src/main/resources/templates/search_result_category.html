@@ -1,0 +1,33 @@
+<head th:replace="/includes/head :: head (title = 'Categories' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="container">
+    <div align="center">
+
+        <!-- create a table which displays a list of categories -->
+        <table border="1" class="category_table">
+            <tr th:each="category : ${result}">        <!-- iterates through the collection of categories -->
+                <td>
+                    <a th:text="${category.category_name}" th:href="'category/'+${category.id}">       <!-- value for the column -->
+                        Category
+                    </a>
+                </td>
+
+                <!-- actions column -->
+
+
+                <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+                    <td>
+                        <a   th:href="@{'admin/edit_category/' + ${category.id}}"> Edit </a>   <!-- hyperlink for the edit action, specifies the URL -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <a  th:href="@{'admin/delete_category/' + ${category.id}}"> Delete </a>
+                    </td>
+                </div>
+
+            </tr>
+            <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+                <tr> <td class="new" colspan="2"> <a  href ="admin/new_category"> + Add new category  </a> </td></tr>
+            </div>
+        </table>
+    </div>
+</div>
+<head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

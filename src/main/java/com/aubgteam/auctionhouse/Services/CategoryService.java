@@ -34,4 +34,10 @@ public class CategoryService {
     {
         repo.deleteById(id);
     }
+
+    public List<Category> searchCategory(String word)
+    {
+        return repo.searchCategory(word);
+    }
+
 }
