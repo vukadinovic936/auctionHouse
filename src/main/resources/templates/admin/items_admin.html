@@ -1,14 +1,19 @@
 <head th:include="/includes/head :: head (title='Items')"
       xmlns:th="http://www.w3.org/1999/xhtml">
-<body >
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+
 <div class="ContentWrapper" th:with="arePendingItems = ${listOfItems.isEmpty()? false: true} ">
 <br/><br/>
 
-<form method="get" id="form" action="/admin/search_pending/">
-    <input type="text" th:value="${term}" onchange="document.getElementById('form').action = '/admin/search_pending/'+ this.value; "/>
+    <form method="get" id="form" action="/admin/search_item/">
+        <input type="text" th:value="${term}" required th:onchange="document.getElementById('form').action = '/admin/search_item/'  + '[[${pending}]]'+'/' + this.value; "/>
+
     <input type="submit" value="Search">
-</form>
-<!--<button th:onclick="${all=true}">All items</button>-->
+    </form>
+    <div class="button-items" th:class="  'button-items ' + (${pending==false}? 'selected': 'not-selected') "><a href="/admin/items_admin/">All items</a></div>
+    <div  class="" th:class=" 'button-items ' +(${pending==true}? 'selected': 'not-selected')  "><a href="/admin/items_admin/true">Pending items</a></div>
+
+    <!--<button th:onclick="${all=true}">All items</button>-->
 <!--<button th:onclick="${all=false}">Pending items</button>-->
 <table th:if="${arePendingItems}">
     <thead>
@@ -32,6 +37,7 @@
         <td th:text="${item.category_id.getCategory_name()}"></td>
         <td th:text="${item.reserve_price}"></td>
         <td th:text="${item.evaluation}"></td>
+
         <td><img th:src="@{'data:image/'+${item.image.type}+';base64,'+${item.image.data}}" height="200px"></td>
         <td th:text="${item.description}" style="width: 350px; overflow: auto"></td>
 <!--        <td th:text="${item.timestamp}"></td>-->
@@ -49,7 +55,8 @@
     </tbody>
 
 </table>
-    <h3 th:unless="${arePendingItems}">There are no pending items matching your search term.</h3>
+    <h3 th:unless="${arePendingItems}">There are no items matching your search term.</h3>
+
 </div>
 
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

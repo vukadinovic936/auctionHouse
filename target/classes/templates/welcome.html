@@ -4,10 +4,14 @@
 
     <h2 >Welcome <span th:text="*{currentUser}"></span>   </h2>
 
-    <a  th:href="@{'/new/'+${currentUser}}">Post an item for sale</a>
+    <a  th:href="@{'/new'}">Post an item for sale</a>
     <a  th:href="@{/items}">Show the items</a>
     <div th:if="${#request.isUserInRole('ADMIN')}" >
        <a th:href="@{/emailFollowers}"> Send Messages For Followers </a>
+        <br/>
+        <a href="admin/charge">Charge the buyers for sold items</a>
+        <br/>
+        <a href="admin/deleteSoldItems">Delete sold items</a>
     </div>
 </div>
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

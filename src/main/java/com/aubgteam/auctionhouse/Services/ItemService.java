@@ -46,16 +46,22 @@ public class ItemService {
         itemRepository.save(item);
 
     }
-    public List<Item> search(String term)
+    public List<Item> search(String term, boolean pending)
+
     {
         term = term.toLowerCase();
         List<Item> listOfPendingItems = this.listAll();
         List<Item> listOfMatchedPendingItems = new ArrayList<>();
         for (Item item: listOfPendingItems) {
-            if(approvedItemService.get(item.getItem_id())==null  && (item.getName().toLowerCase().contains(term)
-                    || item.getDescription().toLowerCase().contains(term)))
+            if( item.getName().toLowerCase().contains(term)
+                    || item.getDescription().toLowerCase().contains(term))
+
             {
-                listOfMatchedPendingItems.add(item);
+                if((pending && approvedItemService.get(item.getItem_id())==null) || !pending)
+                {
+                    listOfMatchedPendingItems.add(item);
+                }
+
             }
 
         }

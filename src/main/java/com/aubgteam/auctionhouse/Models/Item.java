@@ -48,6 +48,8 @@ public class Item {
 //    @Lob
     private String description;
 
+    private int paidFor = 0;
+
 
 
     @OneToOne(mappedBy = "approved_item")
@@ -58,11 +60,6 @@ public class Item {
     @JoinColumn
     private Image image;
 
-    @CreationTimestamp
-    @Column(name = "CREATE_STAMP", nullable = false, updatable = false)
-    private LocalDateTime timestamp;
 
-    @UpdateTimestamp
-    private LocalDateTime updatedTimestamp;
 
 }

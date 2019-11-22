@@ -24,6 +24,7 @@
         <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/myjs.js}"></script>
         <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/readDataAsUrl.js}"></script>
     </head>
     <body>
     <nav class="navbar navbar-expand-sm   navbar-light bg-light">
@@ -44,7 +45,7 @@
                     <a class="nav-link"  th:href="@{/categories}">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/new/'+${currentUser}}">Post an item for sale</a>
+                    <a class="nav-link" th:href="@{'/new'}">Post an item for sale</a>
                 </li>
             </ul>
 
