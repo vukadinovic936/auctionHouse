@@ -46,7 +46,9 @@ private static Properties getProps()
 }
 
 
-    public static void sendEmailToAdmin( List<User> admins, long id)
+
+    public static void sendEmailToAdmin(List<User> admins, long id)
+
     {
         final String username = "softwareaubg@gmail.com";
         final String password = "op3n737am3!";

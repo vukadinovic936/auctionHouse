@@ -9,6 +9,7 @@ import com.aubgteam.auctionhouse.Repositories.ItemRepository;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import com.aubgteam.auctionhouse.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -64,6 +65,7 @@ public class ItemController {
                  listOfItems.remove(itemService.get(t.getApproved_item_id()));
              }
          }
+
 
          model.addAttribute("pending", pending);
 
@@ -158,6 +160,7 @@ public class ItemController {
     public String viewDetailsOfItem(Model model, @PathVariable(name="id") int id)
     {
         Item item =  itemService.get(id);
+
 
         model.addAttribute("item", item);
         model.addAttribute("imageService", imageService);

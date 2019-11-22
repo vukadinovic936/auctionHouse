@@ -2,6 +2,7 @@
       xmlns:th="http://www.w3.org/1999/xhtml">
 <body xmlns:th="http://www.w3.org/1999/xhtml">
 
+
 <div class="ContentWrapper" th:with="arePendingItems = ${listOfItems.isEmpty()? false: true} ">
 <br/><br/>
 
@@ -14,6 +15,7 @@
     <div  class="" th:class=" 'button-items ' +(${pending==true}? 'selected': 'not-selected')  "><a href="/admin/items_admin/true">Pending items</a></div>
 
     <!--<button th:onclick="${all=true}">All items</button>-->
+
 <!--<button th:onclick="${all=false}">Pending items</button>-->
 <table th:if="${arePendingItems}">
     <thead>
@@ -56,7 +58,10 @@
 
 </table>
     <h3 th:unless="${arePendingItems}">There are no items matching your search term.</h3>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 91011169491ed549407ddfe36a6c80432418149b
 </div>
 
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>
