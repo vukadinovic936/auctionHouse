@@ -2,6 +2,7 @@ package com.aubgteam.auctionhouse.Controllers;
 import javax.mail.internet.MimeMessage;
 
 import com.aubgteam.auctionhouse.Models.Follow;
+import com.aubgteam.auctionhouse.Models.Tuple;
 import com.aubgteam.auctionhouse.Services.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,9 +27,13 @@ public class EmailSender {
     @ResponseBody
     public  String emailFollowers(){
         try{
-            List<String> list =followService.getFollowersEmails();
-            for( String s: list){
-               sendEmail(s,"Bidding Open!","The item you are following is open for bidding");
+            List<Tuple> list =followService.getFollowersEmails();
+            for( Tuple t: list){
+                String title="Bidding For "+t.getItemName() + " Open!";
+                String message = "<html><body> <h2>Dear "+t.getUserName()+ ",</h2>"+
+                               "\n <p>The item you are following is now open for bidding. Hurry up and get "+t.getItemName()+ " \n Click here to see the <a href='http://localhost:8080/item/"+ t.getItemLink()+"'> item  </a></p></body></html>";
+               sendEmail(t.getEmail(),title,message);
+                       ;
             }
             return "Success";
         }catch(Exception ex){
@@ -40,7 +45,7 @@ public class EmailSender {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setTo(email);
-        helper.setText(text);
+        helper.setText(text,true);
         helper.setSubject(title);
 
         sender.send(message);

@@ -13,4 +13,5 @@ public interface UserService {
     void saveCreditCard(CreditCard card);
     List<User> getAllAdmins();
     String getLoggedInUsername();
+    long getLoggedInId();
 }

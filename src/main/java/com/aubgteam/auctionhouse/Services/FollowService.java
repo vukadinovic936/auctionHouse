@@ -3,11 +3,15 @@ package com.aubgteam.auctionhouse.Services;
 import com.aubgteam.auctionhouse.Models.ApprovedItem;
 import com.aubgteam.auctionhouse.Models.Follow;
 import com.aubgteam.auctionhouse.Models.Item;
+import com.aubgteam.auctionhouse.Models.Tuple;
 import com.aubgteam.auctionhouse.Repositories.FollowRepsitory;
 import com.aubgteam.auctionhouse.Repositories.ItemRepository; import com.aubgteam.auctionhouse.Repositories.UserRepository;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +25,9 @@ public class FollowService {
     private UserService userService;
     @Autowired
     private ApprovedItemService approvedItemService;
+
+    @Autowired
+    private ItemService itemService;
     public void save(Follow f) {
 
         followRepsitory.save(f);
@@ -30,29 +37,44 @@ public class FollowService {
     public Follow get(long id) {
         return followRepsitory.findById(id).orElse(null);
     }
+    public List<Follow> findByuser_id(long user_id) { return followRepsitory.findByuserId(user_id);}
 
     public void delete(long id) {
         followRepsitory.deleteById(id);
     }
 
     public boolean match(long user_id, long item_id) {
-        List<Follow> temp = followRepsitory.findAll();
-        for (Follow f : temp) {
-            if (f.getUser_id() == user_id && f.getItem_id() == item_id) {
-                return true;
-            }
-        }
-        return false;
+        List<Follow> temp = followRepsitory.findByUserAndItem(user_id,item_id);
+        if(temp.size()==0) return false;
+        return true;
     }
 
-    public List<String> getFollowersEmails() {
-        Calendar cal = Calendar.getInstance();
-        Date currentdate=cal.getTime();
+    public List<ApprovedItem> getFavourites(long userId) {
+        List<Follow> allFollows=this.findByuser_id(userId);
+        List<ApprovedItem> favourites = new ArrayList<ApprovedItem>();
+        for(Follow f : allFollows){
+            favourites.add(approvedItemService.get(f.getItemId()));
+        }
+        return favourites;
+    }
+    public List<Tuple> getFollowersEmails() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        Date currentdate = new Date(System.currentTimeMillis());
+        String curDateStr= (formatter.format(currentdate));
         List<Follow> temp = followRepsitory.findAll();
-        List<String> myList = new ArrayList<>();
+        List<Tuple> myList = new ArrayList<>();
         for (Follow f : temp) {
-            if (approvedItemService.get(f.getItem_id()).getStart_date().compareTo(currentdate)<=0) {
-                myList.add(userService.findById(f.getUser_id()).getEmail());
+            if (approvedItemService.get(f.getItemId()).getStart_date().toString().equals(curDateStr)) {
+                Tuple t = new Tuple();
+
+                t.setEmail(userService.findById(f.getUserId()).getEmail());
+
+                t.setUserName(userService.findById(f.getUserId()).getUsername());
+
+                t.setItemName( itemService.get(f.getItemId()).getName());
+
+                t.setItemLink(""+f.getItemId());
+                myList.add(t);
             }
         }
         return myList;

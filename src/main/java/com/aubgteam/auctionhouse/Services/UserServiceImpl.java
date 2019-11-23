@@ -74,5 +74,8 @@ public class UserServiceImpl implements UserService {
         }
         return users;
     }
-
+    public long getLoggedInId(){
+       User u= this.findByUsername(this.getLoggedInUsername());
+       return u.getId();
+    }
 }
