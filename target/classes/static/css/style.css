@@ -46,3 +46,44 @@ table,th,tr,td{
 {
     color: #C8D6CF;
 }
+.container2
+{
+    text-align: center;
+}
+
+.credit
+{
+    margin-right: 20px;
+}
+
+.credit-btn
+{
+    width:25%;
+    background: antiquewhite;
+
+}
+.welcome-btn:hover
+{
+    text-decoration: none;
+    color: #000099;
+}
+.welcome-btn
+{
+    background-color: #4d4dff; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.welcome-table tr, .welcome-table td{
+    border:none;
+}
+.welcome-table
+{
+    margin: 20px auto 20px 0;
+}

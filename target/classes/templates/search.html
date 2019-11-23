@@ -11,7 +11,7 @@
 
                 <p th:text="${item.approved_item.name}"></p>
                 <img th:src="@{'data:image/'+${item.approved_item.image.type}+';base64,'+${item.approved_item.image.data}}" height="200px">
-                <hr class="item">
+                <hr >
                 <p th:text="${item.approved_item.description}"></p>
                 <p th:text="'Category: '+${item.approved_item.category_id.getCategory_name()}"></p>
 

@@ -1,11 +1,20 @@
 
 <head th:replace="/includes/head :: head (title = 'Categories' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
-<div class="container" >
+<div class="container2" >
+<br/> <br/> <br/> <br/>
     <form method="post"  th:action="@{/add_amount}" >
-        <p> Input your credit</p>
-        <input type="number" id="amount" name="amount" min=1 required="required" autofocus="true">
+        <p> <span class="credit"> Add credit:</span>
+            <input type="number" id="amount" name="amount" min=1 required="required" autofocus="true"
+                   th:onchange="document.getElementById('demo').innerText = 'Your credit will be ' +  ([[${hasAmount}]] + parseInt(this.value));"
+            > </p>
+
+        <p id="demo" ></p>
         <br/>
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
+        <input class="btn btn-lg btn-primary  credit-btn" type="submit" onclick="
+        if(!confirm('Are you sure?'))
+        {return false};"
+               value="Charge credit card"/>
+
     </form>
 
 

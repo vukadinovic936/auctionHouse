@@ -16,11 +16,11 @@
     <div class="row">
 
 
-        <a  th:each="items : ${category.items}"  class="item col-sm-4" th:if="${approvedItemService.get(items.item_id)!=null? true:false}">
+        <a    th:each="items : ${category.items}"  th:href="'/item/'+${items.item_id}" class="item col-sm-4" th:if="${approvedItemService.get(items.item_id)!=null? true:false}">
             <div>
                 <p th:text="${items.name}"></p>
                  <img th:src="@{'data:image/'+${items.image.type}+';base64,'+${items.image.data}}" height="200px">
-                <hr class="item">
+                <hr >
                 <p th:text="${items.description}"></p>
                 <div> Reserve price: <p th:text="${items.reserve_price}"> </p> </div>
                 <div> Evaluation: <p th:text="${items.evaluation}"> </p> </div>
