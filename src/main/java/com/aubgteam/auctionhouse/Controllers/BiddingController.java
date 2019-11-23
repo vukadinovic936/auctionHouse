@@ -1,9 +1,7 @@
 package com.aubgteam.auctionhouse.Controllers;
 
-import com.aubgteam.auctionhouse.Models.ApprovedItem;
-import com.aubgteam.auctionhouse.Models.BidForm;
-import com.aubgteam.auctionhouse.Models.Category;
-import com.aubgteam.auctionhouse.Models.Item;
+import com.aubgteam.auctionhouse.Models.*;
+import com.aubgteam.auctionhouse.Repositories.CreditCardRepository;
 import com.aubgteam.auctionhouse.Services.*;
 import org.apache.tomcat.util.net.AprEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class BiddingController {
@@ -26,6 +25,10 @@ public class BiddingController {
     UserService userService;
     @Autowired
     FollowService followService;
+    @Autowired
+    ApprovedItemService approvedItemService;
+    @Autowired
+    CreditCardRepository ccRepository;
 
     @RequestMapping("/item/{id}")
     public String bidItem(@PathVariable (name="id") int id, Model model) {
@@ -59,6 +62,8 @@ public class BiddingController {
         }
         //Check if the user is following the item
         boolean match= followService.match(userService.findByUsername(userService.getLoggedInUsername()).getId(),item.getItem_id());
+
+        CreditCard biddersCard = userService.findByUsername(userService.getLoggedInUsername()).getCredit_card();
         // Add all the necessary properties to display
         model.addAttribute("name",item.getName());
         model.addAttribute("seller", item.getSellerId().getName());
@@ -75,6 +80,7 @@ public class BiddingController {
         model.addAttribute("start_date",item.getApprovedItem().getStart_date().toString());
         model.addAttribute("end_date",item.getApprovedItem().getEnd_date().toString());
         model.addAttribute("follow",match);
+        model.addAttribute("max_amount", biddersCard.getAmount()-biddersCard.getPending_amount());
         return "bid_item" ;
     }
     @RequestMapping("/bid_item/{id}")
@@ -82,11 +88,71 @@ public class BiddingController {
         Item it= itemService.get(id);
         String username=userService.getLoggedInUsername();
         //change items highest bidder and evaluation price
-        it.setHighestBidder(userService.findByUsername(username));
-        it.setEvaluation(bidForm.getNew_offer());
-        //save item
-        itemService.save(it);
+//        if(userService.findByUsername(username).getCredit_card().getAmount()>=bidForm.getNew_offer()) {
+            it.setHighestBidder(userService.findByUsername(username));
+            it.setEvaluation(bidForm.getNew_offer());
+            //save item
+            itemService.save(it);
+        CreditCard biddersCard = userService.findByUsername(userService.getLoggedInUsername()).getCredit_card();
+        biddersCard.setPending_amount(biddersCard.getPending_amount()+bidForm.getNew_offer());
+        ccRepository.save(biddersCard);
+            return "redirect:/item/{id}";
 
-        return "redirect:/item/{id}";
+//        else
+//        {
+//            return
+//        }
     }
+
+    @RequestMapping("/admin/charge")
+    public String chargeBuyers()
+    {
+        Calendar cal = Calendar.getInstance();
+        Date curDate=cal.getTime();
+
+        // approved items whose auction end date is at most yesterday and have bids
+        List<ApprovedItem> approvedItems =  approvedItemService.listAll();
+        for (ApprovedItem appItem: approvedItems)
+        {
+            if(appItem.getEnd_date().compareTo(curDate)<0)
+            {
+                Item item = itemService.get(appItem.getApproved_item_id());
+                if(item.getHighestBidder()!=null && item.getPaidFor()==0)
+                {
+                    User buyer = item.getHighestBidder();
+                    CreditCard buyersCard = buyer.getCredit_card();
+                    buyersCard.setAmount(buyersCard.getAmount() - item.getEvaluation());
+                    buyersCard.setPending_amount(buyersCard.getPending_amount() - item.getEvaluation());
+                    item.setPaidFor(1);
+                    itemService.save(item);
+                    ccRepository.save(buyersCard);
+
+                }
+            }
+
+        }
+        return "redirect:/welcome";
+    }
+
+    @RequestMapping("/admin/deleteSoldItems")
+    public String deleteSoldItems()
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        Date curDate=cal.getTime();
+
+        // approved items whose auction end date is at most yesterday and have bids
+        List<ApprovedItem> approvedItems =  approvedItemService.listAll();
+        for (ApprovedItem appItem: approvedItems)
+        {
+            if(appItem.getEnd_date().compareTo(curDate)<0)
+            {
+                approvedItemService.delete(appItem.getApproved_item_id());
+                itemService.delete(appItem.getApproved_item_id());
+            }
+
+        }
+        return "redirect:/welcome";
+    }
+
 }

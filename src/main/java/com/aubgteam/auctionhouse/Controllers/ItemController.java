@@ -9,16 +9,7 @@ import com.aubgteam.auctionhouse.Repositories.ItemRepository;
 import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import com.aubgteam.auctionhouse.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -29,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.MessagingException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -77,6 +65,10 @@ public class ItemController {
                  listOfItems.remove(itemService.get(t.getApproved_item_id()));
              }
          }
+
+
+         model.addAttribute("pending", pending);
+
          model.addAttribute("term", "");
         model.addAttribute("listOfItems", listOfItems);
         model.addAttribute("imageService", imageService);
@@ -85,8 +77,8 @@ public class ItemController {
         return "/admin/items_admin";
     }
 
-    @RequestMapping("/new/{username}")
-    public String showNewItemPage(Model model, @PathVariable(name="username") String username) throws Exception{
+    @RequestMapping("/new")
+    public String showNewItemPage(Model model) throws Exception{
         Item item = new Item();
 
 
@@ -94,15 +86,15 @@ public class ItemController {
             model.addAttribute("item", item);
 
             model.addAttribute("categories", categoryRepository.findAll());
-            model.addAttribute("username", username);
+//            model.addAttribute("username", username);
             return "new_item";
 
     }
 
 
-    @RequestMapping(value = {"/save_item/{username}","/save_item/"}, method = RequestMethod.POST)
-    public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item, @PathVariable(name = "username", required = false) String username) {
-
+    @RequestMapping(value = {"/save_item/"}, method = RequestMethod.POST)
+    public String saveItem(@ModelAttribute("imagePath") MultipartFile imagePath, @ModelAttribute("item") Item item) {
+    boolean newItem=false;
         try
         {
             String t= StringUtils.cleanPath(imagePath.getOriginalFilename());
@@ -110,18 +102,16 @@ public class ItemController {
             if(!t.equals("")) {
                 if (item.getItem_id() != 0 && itemService.get(item.getItem_id()).getImage() != null) {
                     imageService.delete(itemService.get(item.getItem_id()).getImage().getId());
+                    item.setSellerId(itemService.get(item.getItem_id()).getSellerId());
 
-                }
-                Image savedImage = imageService.save(imagePath);
-                item.setImage(savedImage);
-                if (username != null) {
-                    item.setSellerId(userService.findByUsername(username));
-//                   MailService.sendEmailToAdmin(userService.findByUsername(username), userService.getAllAdmins());
                 }
                 else
                 {
-                    item.setSellerId(itemService.get(item.getItem_id()).getSellerId());
+                    item.setSellerId(userService.findByUsername(userService.getLoggedInUsername()));
+                    newItem = true;
                 }
+                Image savedImage = imageService.save(imagePath);
+                item.setImage(savedImage);
 
             }
             else
@@ -133,10 +123,10 @@ public class ItemController {
 
 
 
-                itemService.save(item);
-            if(username!=null)
+            itemService.save(item);
+            if(newItem)
             {
-                MailService.sendEmailToAdmin(userService.findByUsername(username), userService.getAllAdmins(), item.getItem_id());
+                MailService.sendEmailToAdmin(userService.getAllAdmins(), item.getItem_id());
             }
 
                 return "redirect:/admin/items_admin/";
@@ -171,6 +161,7 @@ public class ItemController {
     {
         Item item =  itemService.get(id);
 
+
         model.addAttribute("item", item);
         model.addAttribute("imageService", imageService);
 //        model.addAttribute("all", true);
@@ -178,11 +169,13 @@ public class ItemController {
         return "/admin/details_item";
     }
 
-    @RequestMapping(value = "/admin/search_pending/{term}")
-    public String showMatchedItems(Model model, @PathVariable (name = "term") String term)
-    {
-        List<Item> listOfMatchedApprovedItems = itemService.search(term);
+    @RequestMapping(value = "/admin/search_item/{pending}/{term}")
+    public String showMatchedItems(Model model, @PathVariable (name = "term") String term, @PathVariable(name="pending") boolean pending)
 
+    {
+        List<Item> listOfMatchedApprovedItems = itemService.search(term, pending);
+
+        model.addAttribute("pending",pending);
         model.addAttribute("term", term);
         model.addAttribute("imageService", imageService);
         model.addAttribute("listOfItems", listOfMatchedApprovedItems);

@@ -115,4 +115,28 @@ public class UserController {
         userService.deleteUser(id);
     return "redirect:/admin/userInfo";
     }
+
+
+    @RequestMapping(value = "/add_amount", method = RequestMethod.POST)
+    public String addCredit(@ModelAttribute("amount") double amount)
+    {
+        User user = userService.findByUsername(userService.getLoggedInUsername());
+        CreditCard usersCard = user.getCredit_card();
+       usersCard.setAmount(usersCard.getAmount() + amount);
+creditCardRepository.save(user.getCredit_card());
+//        @ModelAttribute("amount") double amount
+//        userService.save(user);
+        return "redirect:/welcome";
+    }
+
+//    @RequestMapping(value = "/add_amount")
+//    public String addCredit()
+//    {
+//        return "redirect:/welcome";
+//    }
+    @RequestMapping("/credit_form")
+    public String showAddCreditForm(Model model){
+        model.addAttribute("amount",0.0);
+        return "add_credit";
+    }
 }

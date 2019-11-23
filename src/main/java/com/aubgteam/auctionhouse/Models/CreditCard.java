@@ -34,4 +34,8 @@ public class CreditCard {
 
     private String billing_address;
 
+    private double amount=0;
+
+    private double pending_amount=0;
+
 }

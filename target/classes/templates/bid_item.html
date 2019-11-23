@@ -46,7 +46,8 @@
             <p> Bidding is open until <span th:text="${start_date}"></span></p>
             <form method="POST" th:action="@{'/bid_item/' + ${item_id}}"  th:object="${bid_form}" modelAttribute="bid_form">
             <p> Input your offer</p>
-            <input type="number" th:field="*{new_offer}" th:min="${highest_bid}" th:required="required" autofocus="true"/>
+            <input type="number" th:field="*{new_offer}" th:min="${highest_bid}" th:max="${max_amount}" th:required="required" autofocus="true" th:disabled="${highest_bid>=max_amount}? true: false"/>
+                <p th:if="${highest_bid>=max_amount}">You don't have sufficient funds.</p>
             </br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         </form>
