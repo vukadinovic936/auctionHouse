@@ -107,6 +107,7 @@ public class UserController {
             username = principal.toString();
 
         }
+        model.addAttribute("card", userService.findByUsername(username).getCredit_card());
         model.addAttribute("currentUser", username);
         return "welcome";
     }
@@ -126,6 +127,7 @@ public class UserController {
 creditCardRepository.save(user.getCredit_card());
 //        @ModelAttribute("amount") double amount
 //        userService.save(user);
+
         return "redirect:/welcome";
     }
 
@@ -137,6 +139,7 @@ creditCardRepository.save(user.getCredit_card());
     @RequestMapping("/credit_form")
     public String showAddCreditForm(Model model){
         model.addAttribute("amount",0.0);
+        model.addAttribute("hasAmount", userService.findByUsername(userService.getLoggedInUsername()).getCredit_card().getAmount());
         return "add_credit";
     }
 }
