@@ -48,6 +48,8 @@
                     <a class="nav-link" th:href="@{'/new'}">Post an item for sale</a>
                 </li>
                 <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/credit_form'}" class="nav-link">Add credit</a></li>
+
+                <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/favourite_items'}" class="nav-link"> Favourites</a></li>
             </ul>
 
 

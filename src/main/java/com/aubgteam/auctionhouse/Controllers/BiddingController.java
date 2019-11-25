@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class BiddingController {
+
     @Autowired
     ItemService itemService;
     @Autowired
@@ -26,10 +27,13 @@ public class BiddingController {
     @Autowired
     FollowService followService;
     @Autowired
+    EmailSender emailSender;
+    @Autowired
     ApprovedItemService approvedItemService;
     @Autowired
     CreditCardRepository ccRepository;
 
+    MailService mailService;
     @RequestMapping("/item/{id}")
     public String bidItem(@PathVariable (name="id") int id, Model model) {
         //GetItem by searching with id
@@ -89,10 +93,17 @@ public class BiddingController {
         String username=userService.getLoggedInUsername();
         //change items highest bidder and evaluation price
 //        if(userService.findByUsername(username).getCredit_card().getAmount()>=bidForm.getNew_offer()) {
+        User u=it.getHighestBidder();
             it.setHighestBidder(userService.findByUsername(username));
             it.setEvaluation(bidForm.getNew_offer());
+            try {
+                emailSender.newHighestBidderEmail(u,it);
+            }catch (Exception e){
+
+            }
             //save item
             itemService.save(it);
+
         CreditCard biddersCard = userService.findByUsername(userService.getLoggedInUsername()).getCredit_card();
         biddersCard.setPending_amount(biddersCard.getPending_amount()+bidForm.getNew_offer());
         ccRepository.save(biddersCard);
