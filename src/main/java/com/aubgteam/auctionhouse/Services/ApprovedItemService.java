@@ -41,5 +41,6 @@ public class ApprovedItemService {
         return approvedItemRepository.search(keyword);
     }
 
+    public List<ApprovedItem> getSoldItems(java.sql.Date end_date){ return approvedItemRepository.soldItems(end_date);}
 
 }

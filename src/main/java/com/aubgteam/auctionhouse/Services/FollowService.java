@@ -1,9 +1,6 @@
 package com.aubgteam.auctionhouse.Services;
 
-import com.aubgteam.auctionhouse.Models.ApprovedItem;
-import com.aubgteam.auctionhouse.Models.Follow;
-import com.aubgteam.auctionhouse.Models.Item;
-import com.aubgteam.auctionhouse.Models.Tuple;
+import com.aubgteam.auctionhouse.Models.*;
 import com.aubgteam.auctionhouse.Repositories.FollowRepsitory;
 import com.aubgteam.auctionhouse.Repositories.ItemRepository; import com.aubgteam.auctionhouse.Repositories.UserRepository;
 import javafx.util.Pair;

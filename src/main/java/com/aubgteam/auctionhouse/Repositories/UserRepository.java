@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 //Function findByUsername(our case ID)
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+
 }
 

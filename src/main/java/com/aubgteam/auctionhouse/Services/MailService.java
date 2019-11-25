@@ -1,8 +1,10 @@
 
 
 package com.aubgteam.auctionhouse.Services;
+import com.aubgteam.auctionhouse.Models.Item;
 import com.aubgteam.auctionhouse.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.*;
@@ -20,6 +22,9 @@ import java.util.List;
 import java.util.Properties;
 
 public class MailService {
+
+    @Autowired
+    private JavaMailSender sender;
 //    private static Properties props = loadProps();
 
 
@@ -47,7 +52,7 @@ private static Properties getProps()
 
 
 
-    public static void sendEmailToAdmin(List<User> admins, long id)
+public static void sendEmailToAdmin(List<User> admins, long id)
 
     {
         final String username = "softwareaubg@gmail.com";
