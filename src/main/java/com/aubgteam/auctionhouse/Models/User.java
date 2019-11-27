@@ -55,5 +55,6 @@ public class User {
 
     private int is_admin;
 
+    private String address;
 
 }

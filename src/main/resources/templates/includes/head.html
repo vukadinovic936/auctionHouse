@@ -26,8 +26,8 @@
         <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/readDataAsUrl.js}"></script>
     </head>
-    <body>
-    <nav class="navbar navbar-expand-sm   navbar-light bg-light">
+    <body class="brown">
+    <nav class="navbar navbar-expand-sm " id="nav1">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,6 +50,8 @@
                 <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/credit_form'}" class="nav-link">Add credit</a></li>
 
                 <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/favourite_items'}" class="nav-link"> Favourites</a></li>
+
+                <li th:if="${#request.isUserInRole('ADMIN')}" class="nav-item"> <a th:href="@{'/admin/userInfo'}" class="nav-link"> Users </a></li>
             </ul>
 
 

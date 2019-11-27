@@ -75,6 +75,7 @@ public class UserController {
             //Create a new user in DB
 
             userData.setCredit_card(creditCardData);
+            userData.setAddress(creditCardData.getBilling_address());
             userService.save(userData);
             securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
             return "redirect:/welcome";

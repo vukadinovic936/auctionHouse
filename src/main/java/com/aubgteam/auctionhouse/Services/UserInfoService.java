@@ -24,9 +24,10 @@ public class UserInfoService {
                 String username =  resultSet.getString("username");
                 String name =  resultSet.getString("name");
                 String email= resultSet.getString("email");
-                User user = new User(id,username,name,email);
-                user.setUsername(resultSet.getString("username"));
 
+                User user = new User(id,username,name,email);
+                user.setAddress(resultSet.getString("address"));
+                user.setUsername(resultSet.getString("username"));
                 return user;
             }
 

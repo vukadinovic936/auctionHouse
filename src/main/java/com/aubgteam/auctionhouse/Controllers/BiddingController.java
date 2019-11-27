@@ -93,13 +93,13 @@ public class BiddingController {
         String username=userService.getLoggedInUsername();
         //change items highest bidder and evaluation price
 //        if(userService.findByUsername(username).getCredit_card().getAmount()>=bidForm.getNew_offer()) {
-        User u=it.getHighestBidder();
+            User u=it.getHighestBidder();
             it.setHighestBidder(userService.findByUsername(username));
             it.setEvaluation(bidForm.getNew_offer());
             try {
                 emailSender.newHighestBidderEmail(u,it);
             }catch (Exception e){
-
+                System.out.println("NOPEEE")    ;
             }
             //save item
             itemService.save(it);
