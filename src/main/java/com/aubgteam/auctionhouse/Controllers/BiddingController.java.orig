@@ -93,6 +93,25 @@ public class BiddingController {
         String username=userService.getLoggedInUsername();
         //change items highest bidder and evaluation price
 //        if(userService.findByUsername(username).getCredit_card().getAmount()>=bidForm.getNew_offer()) {
+<<<<<<< HEAD
+        User u=it.getHighestBidder();
+        if(u!=null)
+        {
+            CreditCard prevHighestBiddersCard = u.getCredit_card();
+            prevHighestBiddersCard.setPending_amount(prevHighestBiddersCard.getPending_amount() - it.getEvaluation());
+            ccRepository.save(prevHighestBiddersCard);
+        }
+            it.setHighestBidder(userService.findByUsername(username));
+            it.setEvaluation(bidForm.getNew_offer());
+            try {
+                emailSender.newHighestBidderEmail(u,it);
+            }catch (Exception e){
+
+            ccRepository.save(prevHighestBiddersCard);
+        }
+||||||| merged common ancestors
+            User u=it.getHighestBidder();
+=======
             User u=it.getHighestBidder();
         if(u!=null)
         {
