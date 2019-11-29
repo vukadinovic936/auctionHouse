@@ -3,19 +3,24 @@
 <div class="container">
 </div>
 <form th:action="@{/login}" method="post"  class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+
+    <div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4 brownb my-5">
+        <h1 class=" text-center 3 mb-3 font-weight-normal">Sign in</h1>
     <div class="form-group @{error !=null ? 'has-error': ''}">
         <span th:text="${message}"></span>
-        <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
-        <input type="password"  name="password" class="form-control" placeholder="Password" required />
+        <input name="username" type="text" class="form-control my-4" placeholder="Username" autofocus="true"/>
+        <input type="password"  name="password" class="form-control my-4" placeholder="Password" required />
         <span th:text="${error}"></span>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block my-4" type="submit">Sign in</button>
 
-        <div class="margin-top20 text-center"> Don't have an account? <a th:href="@{/registration}">Create an account</a></div>
-
-        <br><br>
+        <div class="margin-top20 text-center my-4"> Don't have an account? <a th:href="@{/registration}">Create an account</a></div>
         <a href="/items">See the items</a>
+    </div>
+    </div>
     </div>
 </form>
 </div>

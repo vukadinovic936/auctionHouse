@@ -2,7 +2,7 @@
 {
     border: 1px solid darkslategrey;
     text-decoration: none;
-     background: #fafafa;
+     background: lightblue;
      color: #0b0d0e;
     border-radius: 30px;
 
@@ -19,6 +19,20 @@
 .item hr{
      width: 75%;
  }
+
+.item{
+    text-decoration: none;
+    background: #fafafa;
+    color: #0b0d0e;
+    border-radius: 30px;
+}
+.item-page{
+
+    border: 1px solid darkslategrey;
+    background: #fafafa;
+    color: #0b0d0e;
+    border-radius: 30px;
+}
 
 /*.row*/
 /*{*/
