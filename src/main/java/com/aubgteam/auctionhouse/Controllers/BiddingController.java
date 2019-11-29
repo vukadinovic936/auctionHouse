@@ -94,6 +94,12 @@ public class BiddingController {
         //change items highest bidder and evaluation price
 //        if(userService.findByUsername(username).getCredit_card().getAmount()>=bidForm.getNew_offer()) {
         User u=it.getHighestBidder();
+        if(u!=null)
+        {
+            CreditCard prevHighestBiddersCard = u.getCredit_card();
+            prevHighestBiddersCard.setPending_amount(prevHighestBiddersCard.getPending_amount() - it.getEvaluation());
+            ccRepository.save(prevHighestBiddersCard);
+        }
             it.setHighestBidder(userService.findByUsername(username));
             it.setEvaluation(bidForm.getNew_offer());
             try {
@@ -125,6 +131,7 @@ public class BiddingController {
         List<ApprovedItem> approvedItems =  approvedItemService.listAll();
         for (ApprovedItem appItem: approvedItems)
         {
+
             if(appItem.getEnd_date().compareTo(curDate)<0)
             {
                 Item item = itemService.get(appItem.getApproved_item_id());

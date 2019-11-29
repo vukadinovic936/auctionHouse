@@ -45,7 +45,7 @@
 <!--        <td th:text="${item.timestamp}"></td>-->
         <td>
 
-            <a th:href="@{ ${item.approvedItem!=null? '#': '/admin/approve/' + (__${item.item_id}__)}}" th:text="${item.approvedItem!=null? 'Approved':'Approve'}">Approve</a></td>
+            <a th:href="@{ ${item.approvedItem!=null? '#': '/admin/approve/' + (__${item.item_id}__)}}" th:text="${item.approvedItem!=null? 'Approved':'Approve'}" th:class="${item.approvedItem!=null? 'disabled':''}">Approve</a></td>
 
         <td><a th:href="@{'/admin/edit/' + ${item.item_id}}">Edit</a> </td>
 
