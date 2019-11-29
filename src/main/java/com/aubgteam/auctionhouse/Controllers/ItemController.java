@@ -126,7 +126,7 @@ public class ItemController {
             itemService.save(item);
             if(newItem)
             {
-                MailService.sendEmailToAdmin(userService.getAllAdmins(), item.getItem_id());
+//                MailService.sendEmailToAdmin(userService.getAllAdmins(), item.getItem_id());
             }
 
                 return "redirect:/admin/items_admin/";

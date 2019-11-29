@@ -25,6 +25,7 @@
     </div>
 
     <div th:if="${#request.isUserInRole('ADMIN')}" >
+<<<<<<< HEAD
 
         <div class="row">
 
@@ -42,6 +43,13 @@
         <a class="welcome-btn" th:href="@{/emailFollowers}"> Send Messages For Followers </a>
                 </div>
 </div>`
+=======
+       <a class="welcome-btn" th:href="@{/emailFollowers}"> Send Messages For Followers </a>
+        <br/>
+        <a class="welcome-btn" href="admin/charge">Charge the buyers of sold items</a>
+        <br/>
+        <a class="welcome-btn" href="admin/deleteSoldItems">Delete past items</a>
+>>>>>>> 8df413ef3c03b0cd82e9234c40693e909ce6afd6
     </div>
 
     <br/>
