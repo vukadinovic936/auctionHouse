@@ -2,17 +2,17 @@
 <head th:replace="/includes/head :: head (title = 'Categories' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div class="container2" >
 <br/> <br/> <br/> <br/>
-    <form method="post"  th:action="@{/add_amount}" >
+    <form method="post"  th:action="@{/add_amount}" onsubmit="
+        if(!confirm('Are you sure?'))
+        {return false};">
         <p> <span class="credit"> Add credit:</span>
             <input type="number" id="amount" name="amount" min=1 required="required" autofocus="true"
-                   th:onchange="document.getElementById('demo').innerText = 'Your credit will be ' +  ([[${hasAmount}]] + parseInt(this.value));"
+                   th:onchange="if(this.value) document.getElementById('demo').innerText = 'Your credit will be ' +  ([[${hasAmount}]] + parseInt(this.value));"
             > </p>
 
-        <p id="demo" ></p>
+        <p id="demo" >Your credit will be</p>
         <br/>
-        <input class="btn btn-lg btn-primary  credit-btn" type="submit" onclick="
-        if(!confirm('Are you sure?'))
-        {return false};"
+        <input class="btn btn-lg btn-primary  credit-btn" type="submit"
                value="Charge credit card"/>
 
     </form>
