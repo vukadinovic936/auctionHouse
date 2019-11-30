@@ -100,7 +100,7 @@ public class BiddingController {
             prevHighestBiddersCard.setPending_amount(prevHighestBiddersCard.getPending_amount() - it.getEvaluation());
             ccRepository.save(prevHighestBiddersCard);
         }
->>>>>>> polishing
+
             it.setHighestBidder(userService.findByUsername(username));
             it.setEvaluation(bidForm.getNew_offer());
             try {

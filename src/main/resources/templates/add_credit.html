@@ -4,16 +4,15 @@
                     <div class="row mt-5 ">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <form method="post"  th:action="@{/add_amount}" >
+                            <form method="post"  th:action="@{/add_amount}"  onsubmit="
+        if(!confirm('Are you sure?'))   {return false};">
                                 <p> <h1 class="text-center"> Add credit </h1>
                                 <input type="number" class="mt-5 coco wid" id="amount" name="amount" min=1 required="required" autofocus="true"
                                        th:onchange="document.getElementById('demo').innerText = 'Your credit will be ' +  ([[${hasAmount}]] + parseInt(this.value));"> </p>
                                 </p>
-                                <p id="demo" ></p>
+                                <p id="demo" >Your credit will be</p>
                                 <br/>
-                                <input class="btn btn-lg btn-primary credit-btn wid" type="submit" onclick="
-        if(!confirm('Are you sure?'))
-        {return false};" value="Charge credit card"/>
+                                <input class="btn btn-lg btn-primary credit-btn wid" type="submit"  value="Charge credit card"/>
                             </form>
                         </div>
                     </div>
