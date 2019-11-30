@@ -257,6 +257,7 @@ body {
 }
 
 .notfound a>.arrow {
+
     position: relative;
     top: -2px;
     border: solid #39b1cb;
@@ -305,9 +306,11 @@ body {
 }
 
 .category_table  td.new {
-    background-color: #DAAD86;
-    color: #484848;
+    background-color: #94618E;;
     font-weight: bolder;
+}
+.category_table  td.new a {
+    color: white !important;
 }
 
 .category_table  td:hover {
@@ -332,4 +335,38 @@ body {
 .category_div {
     background-color: #f1f1f1;
 }
-
+.background-orange{
+    background-color:chocolate;
+}
+#nav1
+{
+    opacity: 0.5;
+}
+#nav1 a{
+    color: white;
+    border:0 !important;
+}
+#nav1 li{
+    border: 0 !important;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+p, div {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+body {
+    background: url( bk.png);
+}
+h1 {
+    text-shadow: 1px 1px 1px #ccc;
+}
+.div-that-you want-to-stand-out {
+    box-shadow: 0 0 1em 1em #ccc;
+}
+.none{
+    opacity: 0.0;
+}
+.welcome-btn{
+    width:100% !important;
+}

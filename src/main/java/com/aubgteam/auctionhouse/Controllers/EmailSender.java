@@ -75,7 +75,7 @@ public class EmailSender {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setTo(it.getHighestBidder().getEmail());
+        helper.setTo(u.getEmail());
         helper.setText(text,true);
         helper.setSubject(title);
 

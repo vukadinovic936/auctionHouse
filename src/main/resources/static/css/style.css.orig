@@ -86,15 +86,18 @@ table,th,tr,td{
 }
 .welcome-table
 {
+<<<<<<< HEAD
     margin: 20px auto 20px 0;
 }
 a.disabled {
     pointer-events: none;
     color: #6f6f6f;
+||||||| merged common ancestors
     margin: 20px auto 20px 0;
+=======
     width:100%;
 }
-
 .round{
     border-radius: 20px !important;
+>>>>>>> polishing
 }

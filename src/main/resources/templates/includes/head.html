@@ -16,7 +16,8 @@
         <link rel="stylesheet" th:href="@{/css/items.css}"  type="text/css">
         <link rel="stylesheet" th:href="@{/css/style.css}"  type="text/css">
         <link rel="stylesheet" th:href="@{/css/mycss.css}"  type="text/css">
-
+        <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,500i,700,800i" rel="stylesheet">
@@ -27,7 +28,7 @@
         <script type="text/javascript" th:src="@{/js/readDataAsUrl.js}"></script>
     </head>
     <body>
-    <nav class="navbar navbar-expand-sm   navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm " id="nav1">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,27 +36,30 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto col-sm-10">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link white" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:unless="${#request.isUserInRole('ADMIN')} " href="/items">Items</a>
-                    <a class="nav-link" th:if="${#request.isUserInRole('ADMIN')} " href="/admin/items_admin/">Items</a>
+                    <a class="nav-link white" th:unless="${#request.isUserInRole('ADMIN')} " href="/items">Items</a>
+                    <a class="nav-link white" th:if="${#request.isUserInRole('ADMIN')} " href="/admin/items_admin/">Items</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  th:href="@{/categories}">Categories</a>
+                    <a class="nav-link white"  th:href="@{/categories}">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/new'}">Post an item for sale</a>
+                    <a class="nav-link white" th:href="@{'/new'}">Post an item for sale</a>
                 </li>
-                <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/credit_form'}" class="nav-link">Add credit</a></li>
+                <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/credit_form'}" class="nav-link white">Add credit</a></li>
 
-                <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/favourite_items'}" class="nav-link"> Favourites</a></li>
+                <li th:if="${#request.isUserInRole('ADMIN') || #request.isUserInRole('USER')}" class="nav-item"> <a th:href="@{'/favourite_items'}" class="nav-link white"> Favourites</a></li>
+
+                <li th:if="${#request.isUserInRole('ADMIN')}" class="nav-item"> <a th:href="@{'/admin/userInfo'}" class="nav-link white"> Users </a></li>
             </ul>
 
 
             <div class="row" th:if="${#request.isUserInRole('ADMIN')}" >
                 <div >
                     <ul>
+
                         <li class="nav-item"> <a th:href="@{/logout}">Logout</a></li>
                     </ul>
                 </div>
@@ -74,8 +78,9 @@
                 <div  th:unless="${#request.isUserInRole('USER')}">
                     <div id="div_top_hypers col-sm-2">
                         <ul id="ul_top_hypers">
-                            <li class="nav-item a_top_hyper"> <a th:href="@{/login}">Login</a></li>
                             <li class="nav-item a_top_hypers"> <a th:href="@{/registration}">Register</a></li>
+                            <li class="none">------</li>
+                            <li class="nav-item a_top_hyper"> <a th:href="@{/login}">Login</a></li>
                         </ul>
                     </div>
                 </div>
