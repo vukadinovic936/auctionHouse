@@ -1,11 +1,13 @@
 
 <head th:replace="/includes/head :: head (title = 'Categories' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
-<div class="container">
+<div class="container mt-4">
 <div align="center">
-
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
     <form action="/search_category"  >
         <input type="text" name="word" placeholder="Search for a category..."/>
-        <input type="submit" value="Search" />
+        <input type="submit" class="btn" value="Search" />
     </form>
 
     <!-- create a table which displays a list of categories -->
@@ -34,10 +36,11 @@
         <tr> <td class="new" colspan="2"> <a  href ="admin/new_category"> + Add new category  </a> </td></tr>
         </div>
     </table>
-    </br> </br> </br> </br>
-    <form action="/search"  >
+    </div>
+</div>
+    <form class="mt-5" action="/search"  >
         <input type="text" name="keyword" placeholder="Search for an item..."/>
-        <input type="submit" value="Search" />
+        <input type="submit" class="btn" value="Search" />
     </form>
     <div class="row">
         <a  th:each="item:${listOfItems}" th:href="'item/'+${item.approved_item_id}" class="item col-sm-4" >

@@ -6,10 +6,10 @@
 <div class="ContentWrapper" th:with="arePendingItems = ${listOfItems.isEmpty()? false: true} ">
 <br/><br/>
 
-    <form method="get" id="form" action="/admin/search_item/">
+    <form method="get" id="form" class="" action="/admin/search_item/">
         <input type="text" th:value="${term}" required th:onchange="document.getElementById('form').action = '/admin/search_item/'  + '[[${pending}]]'+'/' + this.value; "/>
 
-    <input type="submit" value="Search">
+    <input type="submit" class="btn" value="Search">
     </form>
     <div class="button-items" th:class="  'button-items ' + (${pending==false}? 'selected': 'not-selected') "><a href="/admin/items_admin/">All items</a></div>
     <div  class="" th:class=" 'button-items ' +(${pending==true}? 'selected': 'not-selected')  "><a href="/admin/items_admin/true">Pending items</a></div>

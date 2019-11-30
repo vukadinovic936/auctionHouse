@@ -9,42 +9,91 @@ li {
 }
 #nav1
 {
-    background-color:saddlebrown;
+    background-color:#49274A;
     opacity: 0.5;
 }
+
+a{
+    color:#94618E !important;
+}
 #nav1 a{
+    color: white !important;
+}
+body{
+    background-image: url("bk.png") !important;
+}
+button{
+    background-color:#94618E !important;
+}
+.btn{
+    color:white !important;
+    background-color:#94618E !important;
+}
+.coolsearch{
+    color:white !important;
+    background-color:#94618E !important;
+}
+.grape{
+   color:#94618E;
+}
+.grapeb{
+    background-color:#94618E;
+}
+.eggplant{
+   color: #49274A;
+}
+.egglplantb{
+   background-color: #49274A;
+}
+.sand{
+    color:#F4DECB;
+}
+.sandb{
+    background-color:#F4DECB;
+}
+.shell{
+    color:#F8EEE7;
+}
+.shellb{
+    background-color:#F8EEE7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Corben', Georgia, Times, serif;
+}
+p, div {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+.row{
+    margin-right: 0px !important;
+
+}
+.footer {
+    opacity:0.5;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5%;
+    background-color: #49274A;
     color: white;
+    text-align: center;
 }
-.skyblue{
-    color:#659DBD;
-}
-.skyblueb{
-    background-color:#659DBD;
-}
-.lightbrown{
-    color:#FBEEC1;
-}
-.lightbrownb{
-    background-color:#FBEEC1;
-}
-.darkbrown{
-   color:saddlebrown;
-}
-.darkbrownb{
+.welcome-btn{
+    background-color:#94618E !important;
 
-    background-color:saddlebrown;
+    color:white !important;
 }
-.brown{
-
-    color:#DAAD86;
+.submitbtn{
+    width:100%;
 }
-.brownb{
-    background-color:#DAAD86;
+table{
+    background-color:#F8EEE7;;
 }
-.green{
-   color:#8D8741;
+.wid{
+    width:100%;
 }
-.greeb{
-   background-color:#8D8741;
+.coco{
+    color:white !important;
+    background-color: #94618E !important;
 }
-

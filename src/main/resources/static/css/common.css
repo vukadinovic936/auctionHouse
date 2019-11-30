@@ -257,6 +257,7 @@ body {
 }
 
 .notfound a>.arrow {
+
     position: relative;
     top: -2px;
     border: solid #39b1cb;
@@ -305,9 +306,11 @@ body {
 }
 
 .category_table  td.new {
-    background-color: #DAAD86;
-    color: #484848;
+    background-color: #94618E;;
     font-weight: bolder;
+}
+.category_table  td.new a {
+    color: white !important;
 }
 
 .category_table  td:hover {

@@ -2,15 +2,20 @@
 {
     border: 1px solid darkslategrey;
     text-decoration: none;
-     background: #fafafa;
+     background: #F4DECB;
      color: #0b0d0e;
     border-radius: 30px;
 
 
 }
 .item
- {
-     color: #0b0d0e;
+{
+    text-decoration: none;
+    background: #F8EEE7;
+    color: #0b0d0e;
+    border-radius: 30px;
+
+    color: #0b0d0e;
      text-align: center;
      border: 1px solid white;
      margin: 50px 0;
