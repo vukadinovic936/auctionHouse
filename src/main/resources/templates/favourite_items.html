@@ -2,7 +2,6 @@
 
 <body>
 <div class="container">
-
     <h2 class="text-center"> Favourite Items</h2>
     <div class="row">
         <a  th:each="item:${listOfItems}" th:href="'item/'+${item.approved_item_id}" class="item col-sm-4" >

@@ -15,7 +15,7 @@
                 <td>Item category:</td>
                 <td>
                     <select th:field="${item.category_id}" max="1" required>
-                    <option  th:each="category: ${categories}"  th:value="${category.getId()}" th:text="${category.getCategory_name()}"></option>
+                    <option class="btn coolsearch"  th:each="category: ${categories}"  th:value="${category.getId()}" th:text="${category.getCategory_name()}"></option>
                 </select>
                 </td>
             </tr>
@@ -42,7 +42,7 @@
                 <td><textarea th:field="${item.description}" required  maxlength="150"/></textarea></td>
             </tr>
 
-            <tr><td colspan="2"> <button type="submit">Save</button></td></tr>
+            <tr><td colspan="2"> <button class="btn btn-info submitbtn" type="submit">Save</button></td></tr>
 
         </table>
     </form>

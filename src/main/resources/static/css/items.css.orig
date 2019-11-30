@@ -2,7 +2,13 @@
 {
     border: 1px solid darkslategrey;
     text-decoration: none;
+<<<<<<< HEAD
+     background: lightblue;
+||||||| merged common ancestors
+     background: #fafafa;
+=======
      background: #F4DECB;
+>>>>>>> polishing
      color: #0b0d0e;
     border-radius: 30px;
 

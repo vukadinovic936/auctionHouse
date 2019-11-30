@@ -1,10 +1,18 @@
 
 <head th:replace="/includes/head :: head (title = 'Categories' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div class="container" >
+<<<<<<< HEAD
+    <div class="row text-center">
+        <div class="col-sm-12 my-4 item-page">
+||||||| merged common ancestors
+    <div class="row text-center">
+        <div class="col-sm-12">
+=======
     <div class="shellb round mx-5">
     <div class="row text-center mt-3 round">
         <div class="col-md-2"></div>
         <div class="col-sm-8 mt-2">
+>>>>>>> polishing
         <h2  th:text="${name}"></h2>
             <h4 th:text="${category}"></h4>
         </div>
@@ -17,11 +25,27 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+    </div>
+    <div class="row">
+        <div class="col-sm-4 item-page">
+            <p> Seller: <p th:text="${seller}"> </p> </p>
+            <p> Reservation price: <p th:text="${reservation_price}"> </p> </p>
+            <p> Evaluation price: <p th:text="${evaluation_price}"> </p> </p>
+||||||| merged common ancestors
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p> Seller: <p th:text="${seller}"> </p> </p>
+            <p> Reservation price: <p th:text="${reservation_price}"> </p> </p>
+            <p> Evaluation price: <p th:text="${evaluation_price}"> </p> </p>
+=======
     <div class="row mx-2 py-3 round">
         <div class="col-sm-4">
             <p> Seller: <b><span th:text="${seller}"> </span></b> </p>
             <p> Reservation price:<b> <span th:text="${reservation_price}"> </span></b> </p>
             <p> Evaluation price: <b><span th:text="${evaluation_price}">  </span></b> </p>
+>>>>>>> polishing
         </div>
         <div class="col-sm-4">
             <img class="img-responsive" th:src="@{'data:image/'+${image.type}+';base64,'+${image.data}}" height="300px">
