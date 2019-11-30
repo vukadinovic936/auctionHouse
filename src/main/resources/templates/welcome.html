@@ -1,30 +1,23 @@
 
 <head th:replace="/includes/head :: head (title='Welcome')" xmlns:th="http://www.w3.org/1999/xhtml"/>
 <div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-6">
+<table class="welcome-table shellb text-center">
 
     <h2 class="text-center" >Welcome, <span th:text="*{currentUser}"></span>  ! </h2>
-    <div class="row">
-        <div class="col-sm-4">
-        </div>
-        <div class="col-sm-8">
-<table class="welcome-table">
-    <h2 class="text-center" >Welcome, <span th:text="*{currentUser}"></span>  ! </h2>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-<table class="welcome-table shellb text-center">
    <tr> <td><h5>Your current credit is: </h5> </td><td th:text="${card.amount}"></td></tr>
    <tr><td> <h5>Your current pending credit is: </h5></td><td th:text="${card.pending_amount}"></td></tr>
 </table>
-        </div>
-    </div>
     <div class="row">
-        <div class="col-sm-12 my-1">
+        <div class="col-sm-12 mt-1">
        <a class="welcome-btn" th:href="@{/items}">Show the items</a>
         </div>
     </div>
     <div class="row">
-        <div class=" col-sm-12 my-1">
+        <div class=" col-sm-12 mt-1">
         <a class="welcome-btn " th:href="@{'/new'}">Post an item for sale</a>
     </div>
     </div>
@@ -33,24 +26,24 @@
 
         <div class="row">
 
-            <div class="col-sm-12 my-1">
+            <div class="col-sm-12 mt-1">
         <a class="welcome-btn" th:href="@{/emailFollowers}"> Send Messages For Followers </a>
         </div>
     </div>
             <div class="row">
-                <div class="col-sm-12 my-1">
+                <div class="col-sm-12 mt-1">
         <a class="welcome-btn" href="admin/charge">Charge the buyers for sold items</a>
             </div>
     </div>
                 <div class="row">
-                    <div class="col-sm-12 my-1">
+                    <div class="col-sm-12 mt-1">
         <a class="welcome-btn" th:href="@{/emailFollowers}"> Send Messages For Followers </a>
                 </div>
-</div>`
+</div>
+    </div>
+    </div>
     </div>
 
-    </div>
-    </div>
 </div>
 
 <head th:replace="/includes/footer :: footer" xmlns:th="http://www.w3.org/1999/xhtml"/>

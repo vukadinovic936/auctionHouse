@@ -1,5 +1,5 @@
 <head th:replace="/includes/head :: head (title = 'Sign up' )" xmlns:th="http://www.w3.org/1999/xhtml"/>
-    <div class="container">
+    <div class="container round shellb ">
 
     <span style="color:red" th:text="*{errors}"></span>
     <form method="POST" modelAttribute="userForm" id="form1" th:action="@{/registration}" th:object="${userForm}"  class="form-signin">
@@ -54,7 +54,7 @@
             </div>
 
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Submit</button>
         </form>
 
     </div>
